@@ -13,3 +13,14 @@ Creating turbopack project { dir: 'D:\\the-coffee-evolution', testMode: true }
  GET / 200 in 15.1s (next.js: 13.5s, application-code: 1569ms)
 ✓ Finished filesystem cache database compaction in 15.0s
  HEAD / 200 in 332ms (next.js: 26ms, application-code: 306ms)
+ GET / 200 in 2.4s (next.js: 883ms, application-code: 1537ms)
+✓ Compiled in 3.2s
+ GET / 200 in 3.4s (next.js: 3.0s, application-code: 331ms)
+ GET / 200 in 8.8s (next.js: 8.4s, application-code: 465ms)
+ GET / 200 in 329ms (next.js: 115ms, application-code: 214ms)
+ GET / 200 in 229ms (next.js: 10ms, application-code: 219ms)
+ GET / 200 in 270ms (next.js: 47ms, application-code: 223ms)
+ GET / 200 in 410ms (next.js: 86ms, application-code: 324ms)
+ GET / 200 in 277ms (next.js: 13ms, application-code: 264ms)
+ GET / 200 in 323ms (next.js: 9ms, application-code: 314ms)
+✓ Compiled in 9.3s

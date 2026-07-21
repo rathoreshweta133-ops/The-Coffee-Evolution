@@ -153,13 +153,22 @@ function Nav() {
         solid ? "bg-[rgba(21,16,13,.86)] shadow-2xl shadow-black/20 backdrop-blur-xl" : "bg-transparent"
       )}
     >
-      <div className="border-b border-white/10 bg-black/20">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--cream)]/72 sm:flex-row sm:items-center sm:justify-between md:px-8">
-          <a href={`tel:${brand.phone.replace(/\s/g, "")}`} className="inline-flex items-center gap-2 hover:text-[var(--accent)]">
-            <Phone className="h-3.5 w-3.5" /> {brand.phone}
+      <div className="border-b border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(255,214,114,0.14),transparent_38%),rgba(5,4,4,0.92)] shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.22em] text-[var(--cream)]/90 sm:flex-row sm:items-center sm:justify-between md:px-8">
+          <a
+            href={`tel:${brand.phone}`}
+            className="inline-flex items-center gap-3 rounded-full border border-[var(--accent)]/30 bg-white/5 px-4 py-3 text-sm font-bold text-[var(--cream)] transition duration-200 hover:border-[var(--accent)] hover:bg-[rgba(255,255,255,0.12)] hover:text-[var(--accent)]"
+          >
+            <span className="rounded-full bg-[var(--accent)]/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+              Call
+            </span>
+            <Phone className="h-4 w-4 text-[var(--accent)]" /> {brand.phone}
           </a>
-          <a href={`mailto:${brand.email}`} className="inline-flex items-center gap-2 hover:text-[var(--accent)]">
-            <Mail className="h-3.5 w-3.5" /> {brand.email}
+          <a
+            href={`mailto:${brand.email}`}
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-[var(--cream)] transition duration-200 hover:border-[var(--accent)] hover:bg-[rgba(255,255,255,0.12)] hover:text-[var(--accent)]"
+          >
+            <Mail className="h-4 w-4" /> {brand.email}
           </a>
         </div>
       </div>
