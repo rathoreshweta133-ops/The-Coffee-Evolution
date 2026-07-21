@@ -304,17 +304,33 @@ function PourIllustration({ staticFrame }: { staticFrame: boolean }) {
     <div className="relative mx-auto aspect-square w-full max-w-[520px]" aria-hidden="true">
       <div className="absolute inset-0 rounded-full bg-[var(--accent)]/10 blur-3xl" />
       <svg viewBox="0 0 520 520" className={clsx("relative h-full w-full drop-shadow-2xl", staticFrame && "static-pour")}>
-        <path d="M190 70h140l-24 54H214z" fill="#21150f" stroke="#d8a763" strokeWidth="6" />
-        <rect x="225" y="124" width="70" height="40" fill="#15100d" stroke="#d8a763" strokeWidth="6" />
-        <rect className="espresso-stream" x="254" y="163" width="12" height="112" rx="6" fill="#8f5f39" />
-        <rect className="milk-stream" x="306" y="142" width="10" height="156" rx="5" fill="#f5dcc0" opacity=".92" transform="rotate(15 311 220)" />
-        <path d="M139 300h242v58c0 58-47 105-105 105h-32c-58 0-105-47-105-105z" fill="#f5dcc0" stroke="#d8a763" strokeWidth="7" />
-        <path className="cup-fill" d="M156 314h208v34c0 48-39 86-86 86h-36c-48 0-86-39-86-86z" fill="#8f5f39" opacity=".88" />
-        <path d="M378 323h36c25 0 45 20 45 45s-20 45-45 45h-44" fill="none" stroke="#d8a763" strokeWidth="13" />
-        <path className="latte-swirl" d="M197 345c28-20 96-21 126 0 23 17-8 45-60 44-43-1-60-18-41-31 17-12 58-13 80 0" fill="none" stroke="#f5dcc0" strokeLinecap="round" strokeWidth="8" strokeDasharray="300" />
-        <path className="steam-line" d="M205 262c-22-29 27-36 5-68" fill="none" stroke="#f5dcc0" strokeLinecap="round" strokeWidth="5" opacity=".78" />
-        <path className="steam-line" d="M262 254c-25-32 30-42 3-78" fill="none" stroke="#f5dcc0" strokeLinecap="round" strokeWidth="5" opacity=".78" />
-        <path className="steam-line" d="M319 263c-20-26 25-35 4-64" fill="none" stroke="#f5dcc0" strokeLinecap="round" strokeWidth="5" opacity=".78" />
+        <defs>
+          <linearGradient id="cupBody" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#f8f2e9" />
+            <stop offset="100%" stopColor="#e6d8c3" />
+          </linearGradient>
+          <linearGradient id="coffeeSurface" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#7f4f34" />
+            <stop offset="100%" stopColor="#412b1d" />
+          </linearGradient>
+          <radialGradient id="cupHighlight" cx="50%" cy="30%" r="60%">
+            <stop offset="0%" stopColor="rgba(255,255,255,0.72)" />
+            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+          </radialGradient>
+        </defs>
+        <ellipse cx="260" cy="180" rx="120" ry="38" fill="#f1e8de" stroke="#d8a763" strokeWidth="6" />
+        <path d="M140 180 C140 260, 140 340, 260 352 C380 340, 380 260, 380 180 Z" fill="url(#cupBody)" stroke="#c9b199" strokeWidth="6" />
+        <path d="M140 180 C140 186, 140 210, 160 236 C190 285, 230 310, 260 318 C290 310, 330 285, 360 236 C380 210, 380 186, 380 180 Z" fill="url(#coffeeSurface)" />
+        <ellipse cx="260" cy="178" rx="104" ry="24" fill="url(#coffeeSurface)" opacity="0.96" />
+        <path d="M190 150 C206 132, 254 132, 270 150" fill="none" stroke="#f7e4d0" strokeWidth="6" strokeLinecap="round" opacity="0.7" />
+        <path d="M170 172 C186 158, 234 158, 250 172" fill="none" stroke="#fbf0dc" strokeWidth="4" strokeLinecap="round" opacity="0.65" />
+        <path d="M336 184 C390 192, 394 250, 336 258 C328 260, 314 256, 308 250 C302 244, 298 232, 298 216 C298 198, 312 190, 336 184 Z" fill="url(#cupBody)" stroke="#c9b199" strokeWidth="6" />
+        <ellipse cx="260" cy="352" rx="142" ry="26" fill="#c7b295" opacity="0.26" />
+        <ellipse cx="260" cy="160" rx="80" ry="16" fill="url(#cupHighlight)" opacity="0.8" />
+        <path d="M210 118 C188 96, 204 66, 246 76" fill="none" stroke="#f6e7cf" strokeWidth="10" opacity="0.55" strokeLinecap="round" />
+        <path d="M250 108 C242 88, 286 80, 302 100" fill="none" stroke="#f6e7cf" strokeWidth="10" opacity="0.42" strokeLinecap="round" />
+        <path d="M232 92 C218 70, 252 58, 280 76" fill="none" stroke="#f6e7cf" strokeWidth="10" opacity="0.38" strokeLinecap="round" />
+        <circle cx="198" cy="164" r="12" fill="rgba(255,255,255,0.4)" />
       </svg>
     </div>
   );

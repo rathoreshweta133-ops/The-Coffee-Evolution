@@ -226,3 +226,59 @@ https://react.dev/link/hydration-mismatch
  
 [browser] Image with src "/images/menu/bites/pizza-and-sides.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
 [browser] Image with src "/images/menu/seasonal/berry-frappe.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] You have Reduced Motion enabled on your device. Animations may not appear as expected.. For more information and steps for solving, visit https://motion.dev/troubleshooting/reduced-motion-disabled (src/components/cafe-experience.tsx:243:40)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <LoadingBoundary name="/" loading={null}>
+      <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+        <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+          <RedirectBoundary>
+            <RedirectErrorBoundary router={{...}}>
+              <InnerLayoutRouter url="/#gallery" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>
+                <SegmentViewNode type="page" pagePath="page.tsx">
+                  <SegmentTrieNode>
+                  <Home>
+                    <script>
+                    <CafeExperience>
+                      <CustomCursor>
+                      <div>
+                      <Nav>
+                      <main>
+                        <Hero>
+                          <section id="hero" ref={{current:null}} className="relative g...">
+                            <div>
+                            <div>
+                            <div>
+                            <div>
+                            <div className="relative z...">
+                              <div
++                               className="hero-copy max-w-3xl hero-copy-ready"
+-                               className="hero-copy max-w-3xl"
+                              >
+                              <PourIllustration staticFrame={true}>
+                                <div className="relative m..." aria-hidden="true">
+                                  <div>
+                                  <svg
+                                    viewBox="0 0 520 520"
++                                   className="relative h-full w-full drop-shadow-2xl static-pour"
+-                                   className="relative h-full w-full drop-shadow-2xl"
+                                  >
+                            ...
+                        ...
+                      ...
+                ...
+              ...
+ 
+[browser] Image with src "/images/menu/seasonal/berry-frappe.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "/images/menu/bites/pizza-and-sides.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
