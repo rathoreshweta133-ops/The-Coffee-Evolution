@@ -356,15 +356,19 @@ function MenuBook() {
         <SectionHeading kicker="Our products / menu" title="Bright coffees, coolers, shakes, pizzas, bowls, and desserts from the Nizamabad counter." tone="dark" />
         <div className={clsx("book-shell mt-12", open && "book-open")}>
           <button type="button" onClick={() => setOpen(true)} className="book-cover text-left" aria-label="Open menu book">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-[var(--accent)]">Open the menu</span>
-            <span className="mt-5 block font-display text-5xl text-[var(--cream)] md:text-7xl">Eat. Drink. Vibe.</span>
-            <span className="mt-8 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-[var(--cream)]/75">Pull cover <ArrowRight className="h-4 w-4" /></span>
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent)]">The café journal</span>
+            <span className="mt-5 block font-display text-5xl leading-tight text-[var(--cream)] md:text-6xl">Menu Diary</span>
+            <span className="mt-4 block max-w-xs text-sm leading-7 text-[var(--cream)]/80">Handwritten notes, premium plates, and the stories behind every flavor.</span>
+            <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.22em] text-[var(--accent)]/90">Open cover <ArrowRight className="h-4 w-4" /></span>
           </button>
           <div className="book-pages">
             <div className="book-page left-page">
               <div className="flex items-center justify-between gap-4">
-                <h3 className="font-display text-4xl">Menu</h3>
-                <button className="text-sm font-bold uppercase tracking-[0.2em] text-[var(--muted)]" onClick={() => setOpen(false)}>Close</button>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.32em] text-[var(--accent-dark)]">Diary Entry</p>
+                  <h3 className="font-display text-4xl">Seasonal Menu Notes</h3>
+                </div>
+                <button className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--muted)]" onClick={() => setOpen(false)}>Close</button>
               </div>
               <div className="mt-8 grid gap-3">
                 {menuCategories.map((item) => (
@@ -378,13 +382,15 @@ function MenuBook() {
                   </button>
                 ))}
               </div>
-              <label className="mt-8 flex items-center gap-3 text-sm text-[var(--muted)]">
-                <input type="checkbox" checked={veganOnly} onChange={(event) => setVeganOnly(event.target.checked)} className="h-5 w-5 accent-[var(--accent)]" />
-                Vegan only
-              </label>
-              <div className="mt-5 flex items-center gap-2 border border-[var(--line-dark)] px-3 py-2">
-                <Search className="h-4 w-4 text-[var(--muted)]" />
-                <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search the book" className="w-full bg-transparent text-sm outline-none placeholder:text-[var(--muted)]" />
+              <div className="mt-8 rounded-[2rem] border border-[var(--line-dark)] bg-white/90 p-5 shadow-[inset_0_0_0_1px_rgba(21,16,13,0.06)] backdrop-blur-sm">
+                <label className="flex items-center gap-3 text-sm text-[var(--muted)]">
+                  <input type="checkbox" checked={veganOnly} onChange={(event) => setVeganOnly(event.target.checked)} className="h-5 w-5 accent-[var(--accent)]" />
+                  Vegan only
+                </label>
+                <div className="mt-4 flex items-center gap-3 border-t border-[var(--line-dark)] pt-4 text-sm text-[var(--muted)]">
+                  <Search className="h-4 w-4 text-[var(--muted)]" />
+                  <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search the diary" className="w-full bg-transparent text-sm outline-none placeholder:text-[var(--muted)]" />
+                </div>
               </div>
             </div>
             <AnimatePresence mode="wait">
@@ -396,25 +402,35 @@ function MenuBook() {
                 transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
                 className="book-page right-page"
               >
-                <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--accent-dark)]">{category}</p>
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent-dark)]">{category}</p>
+                    <p className="text-sm uppercase tracking-[0.24em] text-[var(--accent)]">Crafted selections</p>
+                  </div>
+                  <span className="text-xs uppercase tracking-[0.28em] text-[var(--muted)]">Page 12</span>
+                </div>
                 <div className="mt-6 grid gap-4">
                   {items.map((item) => (
-                    <article key={item.name} className="menu-item">
-                      {item.image ? (
-                        <Image src={item.image} alt={`${item.name} at ${brand.name}`} width={104} height={104} className="h-20 w-20 shrink-0 object-cover" />
-                      ) : (
-                        <div className="grid h-20 w-20 shrink-0 place-items-center bg-[var(--ink)] text-center font-display text-2xl text-[var(--accent)]" aria-hidden="true">
-                          {item.name.slice(0, 1)}
-                        </div>
-                      )}
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-start justify-between gap-4">
-                          <h4 className="font-display text-xl">{item.name}</h4>
-                          <span className="font-bold text-[var(--accent-dark)]">{item.price}</span>
-                        </div>
-                        <p className="mt-1 text-sm leading-6 text-[var(--muted)]">{item.description}</p>
-                        <div className="mt-2 flex gap-2">
-                          {item.tags?.map((tag) => <span key={tag} className="tag">{tag}</span>)}
+                    <article key={item.name} className="menu-item rounded-[1.75rem] border border-[var(--line-dark)] bg-[rgba(255,255,255,0.92)] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+                      <div className="flex items-start gap-4">
+                        {item.image ? (
+                          <Image src={item.image} alt={`${item.name} at ${brand.name}`} width={104} height={104} className="h-24 w-24 shrink-0 rounded-3xl object-cover shadow-[0_10px_30px_rgba(0,0,0,0.16)]" />
+                        ) : (
+                          <div className="grid h-24 w-24 shrink-0 place-items-center rounded-3xl bg-[var(--ink)] text-2xl font-bold uppercase tracking-[0.16em] text-[var(--accent)]" aria-hidden="true">
+                            {item.name.slice(0, 1)}
+                          </div>
+                        )}
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-start justify-between gap-4">
+                            <h4 className="font-display text-2xl text-[var(--ink)]">{item.name}</h4>
+                            <span className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--accent-dark)]">{item.price}</span>
+                          </div>
+                          <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.description}</p>
+                          <div className="mt-4 flex flex-wrap gap-2">
+                            {item.tags?.map((tag) => (
+                              <span key={tag} className="tag">{tag}</span>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </article>
