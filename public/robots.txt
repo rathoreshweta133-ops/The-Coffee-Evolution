@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://the-coffee-evolution-nizamabad.example/sitemap.xml
