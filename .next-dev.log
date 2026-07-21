@@ -8,3 +8,8 @@
 ✓ Ready in 6.4s
 Creating turbopack project { dir: 'D:\\the-coffee-evolution', testMode: true }
 
+○ Compiling / ...
+ HEAD / 200 in 15.8s (next.js: 14.3s, application-code: 1509ms)
+ GET / 200 in 15.1s (next.js: 13.5s, application-code: 1569ms)
+✓ Finished filesystem cache database compaction in 15.0s
+ HEAD / 200 in 332ms (next.js: 26ms, application-code: 306ms)
