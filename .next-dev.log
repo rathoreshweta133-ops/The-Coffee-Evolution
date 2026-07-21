@@ -25,3 +25,4 @@ Creating turbopack project { dir: 'D:\\the-coffee-evolution', testMode: true }
  GET / 200 in 323ms (next.js: 9ms, application-code: 314ms)
 ✓ Compiled in 9.3s
  GET / 200 in 5.1s (next.js: 1632ms, application-code: 3.5s)
+ GET / 200 in 2.2s (next.js: 1492ms, application-code: 711ms)
