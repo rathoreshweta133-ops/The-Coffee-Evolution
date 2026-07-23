@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="520" height="520" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6a3d24"/>
+      <stop offset="100%" stop-color="#d4a47c"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="520" height="520" rx="48" fill="url(#grad)"/>
+  <rect x="24" y="24" width="472" height="472" rx="32" fill="rgba(255,255,255,0.12)"/>
+  <text x="50%" y="38%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="72" fill="rgba(255,255,255,0.9)">🍕</text>
+  <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="white">Jalapeno Shots</text>
+</svg>

@@ -18,7 +18,6 @@ import {
   Menu as MenuIcon,
   MessageCircle,
   MousePointer2,
-  Pause,
   Phone,
   Search,
   X,
@@ -307,30 +306,41 @@ function PourIllustration({ staticFrame }: { staticFrame: boolean }) {
         <defs>
           <linearGradient id="cupBody" x1="0" x2="0" y1="0" y2="1">
             <stop offset="0%" stopColor="#f8f2e9" />
-            <stop offset="100%" stopColor="#e6d8c3" />
+            <stop offset="60%" stopColor="#e6d8c3" />
+            <stop offset="100%" stopColor="#d3bea4" />
           </linearGradient>
           <linearGradient id="coffeeSurface" x1="0" x2="0" y1="0" y2="1">
             <stop offset="0%" stopColor="#7f4f34" />
-            <stop offset="100%" stopColor="#412b1d" />
+            <stop offset="80%" stopColor="#4b2e1b" />
           </linearGradient>
-          <radialGradient id="cupHighlight" cx="50%" cy="30%" r="60%">
+          <linearGradient id="liquidGloss" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stopColor="rgba(255,255,255,0.72)" />
+            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+          </linearGradient>
+          <radialGradient id="cupHighlight" cx="50%" cy="20%" r="60%">
             <stop offset="0%" stopColor="rgba(255,255,255,0.72)" />
             <stop offset="100%" stopColor="rgba(255,255,255,0)" />
           </radialGradient>
         </defs>
         <ellipse cx="260" cy="180" rx="120" ry="38" fill="#f1e8de" stroke="#d8a763" strokeWidth="6" />
         <path d="M140 180 C140 260, 140 340, 260 352 C380 340, 380 260, 380 180 Z" fill="url(#cupBody)" stroke="#c9b199" strokeWidth="6" />
-        <path d="M140 180 C140 186, 140 210, 160 236 C190 285, 230 310, 260 318 C290 310, 330 285, 360 236 C380 210, 380 186, 380 180 Z" fill="url(#coffeeSurface)" />
-        <ellipse cx="260" cy="178" rx="104" ry="24" fill="url(#coffeeSurface)" opacity="0.96" />
-        <path d="M190 150 C206 132, 254 132, 270 150" fill="none" stroke="#f7e4d0" strokeWidth="6" strokeLinecap="round" opacity="0.7" />
-        <path d="M170 172 C186 158, 234 158, 250 172" fill="none" stroke="#fbf0dc" strokeWidth="4" strokeLinecap="round" opacity="0.65" />
-        <path d="M336 184 C390 192, 394 250, 336 258 C328 260, 314 256, 308 250 C302 244, 298 232, 298 216 C298 198, 312 190, 336 184 Z" fill="url(#cupBody)" stroke="#c9b199" strokeWidth="6" />
-        <ellipse cx="260" cy="352" rx="142" ry="26" fill="#c7b295" opacity="0.26" />
+        <path d="M140 180 C140 188, 145 204, 163 228 C190 276, 230 295, 260 303 C290 295, 330 276, 357 228 C375 204, 380 188, 380 180 Z" fill="url(#coffeeSurface)" />
+        <ellipse cx="260" cy="178" rx="96" ry="22" fill="url(#liquidGloss)" opacity="0.82" />
+        <path d="M190 150 C208 132, 252 132, 270 150" fill="none" stroke="#f7e4d0" strokeWidth="6" strokeLinecap="round" opacity="0.78" />
+        <path d="M173 170 C190 156, 236 156, 253 170" fill="none" stroke="#fbf0dc" strokeWidth="4" strokeLinecap="round" opacity="0.65" />
+        <path d="M212 162 C224 150, 256 150, 268 162" fill="none" stroke="#fff2db" strokeWidth="3" strokeLinecap="round" opacity="0.56" />
+        <path d="M325 170 C365 174, 368 242, 330 250 C322 252, 308 248, 302 242 C296 236, 292 224, 292 210 C292 192, 306 184, 325 170 Z" fill="url(#cupBody)" stroke="#c9b199" strokeWidth="6" />
+        <path d="M287 172 C292 178, 298 184, 308 190" fill="none" stroke="#fff5df" strokeWidth="3" opacity="0.45" strokeLinecap="round" />
+        <ellipse cx="260" cy="352" rx="142" ry="26" fill="#c7b295" opacity="0.28" />
+        <path d="M330 200 C365 178, 422 180, 430 226 C438 272, 390 304, 346 292" fill="none" stroke="#d3b08f" strokeWidth="12" opacity="0.22" />
         <ellipse cx="260" cy="160" rx="80" ry="16" fill="url(#cupHighlight)" opacity="0.8" />
         <path d="M210 118 C188 96, 204 66, 246 76" fill="none" stroke="#f6e7cf" strokeWidth="10" opacity="0.55" strokeLinecap="round" />
         <path d="M250 108 C242 88, 286 80, 302 100" fill="none" stroke="#f6e7cf" strokeWidth="10" opacity="0.42" strokeLinecap="round" />
         <path d="M232 92 C218 70, 252 58, 280 76" fill="none" stroke="#f6e7cf" strokeWidth="10" opacity="0.38" strokeLinecap="round" />
-        <circle cx="198" cy="164" r="12" fill="rgba(255,255,255,0.4)" />
+        <path d="M272 122 C280 104, 308 98, 318 112" fill="none" stroke="#f9edde" strokeWidth="8" opacity="0.48" strokeLinecap="round" />
+        <path d="M288 94 C300 74, 324 70, 334 92" fill="none" stroke="#f9edde" strokeWidth="8" opacity="0.36" strokeLinecap="round" />
+        <path d="M356 178 C390 190, 392 228, 356 238" fill="none" stroke="#d2a873" strokeWidth="14" opacity="0.16" strokeLinecap="round" />
+        <path d="M336 184 C348 176, 358 170, 374 172" fill="none" stroke="#fff8e2" strokeWidth="6" opacity="0.4" strokeLinecap="round" />
       </svg>
     </div>
   );
@@ -531,18 +541,18 @@ function About() {
 
 function Featured() {
   return (
-    <section className="bg-[var(--paper)] px-5 py-24 text-[var(--ink)] md:py-32">
+    <section className="bg-[var(--paper)] px-5 py-24 text-[var(--ink)] reveal-text md:py-32">
       <div className="mx-auto max-w-7xl">
         <SectionHeading kicker="Highlights" title="House favorites with a little theatre." tone="dark" />
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {featuredItems.map((item, index) => (
             <motion.article
               key={item.name}
-              initial={{ opacity: 0, y: 32 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ delay: index * 0.08 }}
-              className="group overflow-hidden bg-white shadow-[0_20px_70px_rgba(43,30,22,.08)]"
+              className="group overflow-hidden rounded-[2rem] bg-white shadow-[0_20px_70px_rgba(43,30,22,.08)]"
             >
               <div className="relative aspect-[4/5] overflow-hidden">
                 {item.image ? (
@@ -553,12 +563,54 @@ function Featured() {
                   </div>
                 )}
               </div>
-              <div className="p-5">
+              <div className="p-6">
                 <h3 className="font-display text-2xl">{item.name}</h3>
-                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{item.description}</p>
+                <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.description}</p>
               </div>
             </motion.article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Team() {
+  const members = [
+    { name: "Sara", role: "Outlet manager", note: "Curates daily menu flow and keeps the service polished." },
+    { name: "Anand", role: "Head barista", note: "Brews every espresso, latte, and pour with precision and warmth." },
+    { name: "Rhea", role: "Guest host", note: "Welcomes guests, matches tables, and makes every visit feel easy." },
+  ];
+
+  return (
+    <section className="bg-[var(--paper)] px-5 py-24 text-[var(--ink)] reveal-text md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading kicker="Meet the team" title="The Nizamabad crew behind every coffee, plate, and friendly hello." tone="dark" />
+        <div className="mt-12 grid gap-8 lg:grid-cols-[1.05fr_.95fr]">
+          <div className="relative overflow-hidden rounded-[2rem] bg-[var(--ink)] shadow-[0_30px_90px_rgba(21,16,13,.16)]">
+            <div className="absolute inset-0 bg-gradient-to-br from-[rgba(216,167,99,0.14)] via-transparent to-[rgba(255,255,255,0.02)]" />
+            <Image src="/images/gallery/team-at-outlet.jpeg" alt="Team members at The Coffee Evolution Nizamabad" width={960} height={720} className="relative h-full w-full object-cover" />
+          </div>
+          <div className="grid gap-6 rounded-[2rem] border border-[var(--line-dark)] bg-white/90 p-8 shadow-[0_30px_70px_rgba(21,16,13,.12)]">
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[var(--accent-dark)]">Outpost crew</p>
+            <h3 className="font-display text-5xl">Passion, polish, and a warm local welcome.</h3>
+            <p className="text-[var(--muted)]">A small, dedicated Nizamabad team that pours care into every coffee, plate, and late-evening table.</p>
+            <div className="grid gap-4">
+              {members.map((member) => (
+                <motion.div
+                  key={member.name}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.35 }}
+                  className="rounded-[1.5rem] border border-[var(--line)] bg-[var(--paper)] p-5"
+                >
+                  <p className="font-display text-2xl text-[var(--ink)]">{member.name}</p>
+                  <p className="mt-1 text-sm uppercase tracking-[0.22em] text-[var(--accent-dark)]">{member.role}</p>
+                  <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{member.note}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -605,29 +657,50 @@ function Gallery() {
 }
 
 function Testimonials() {
-  const [paused, setPaused] = useState(false);
-  const quotes = [
-    "Coffee, pizza, shakes, and an easy room for long Nizamabad evenings.",
-    "A polished cafe stop for friends, families, work catch-ups, and dessert plans.",
-    "The menu has range: coffee, coolers, pasta, bowls, sandwiches, and affogato.",
-    "Warm service, bright plates, and a brand feel that lands from the first sip.",
+  const voices = [
+    {
+      quote: "The espresso is bold, the plates arrive polished, and the atmosphere feels like a premium local lounge.",
+      name: "Priya",
+      role: "Regular guest",
+    },
+    {
+      quote: "Perfect for family evenings and quick work catch-ups — everything tastes fresh, bright, and on point.",
+      name: "Rahul",
+      role: "Food blogger",
+    },
+    {
+      quote: "The team is welcoming, and the menu surprises me every time with new favorites and strong coffee.",
+      name: "Sneha",
+      role: "Creative freelancer",
+    },
+    {
+      quote: "From frappes to sandwiches, every order feels carefully plated and easy to enjoy.",
+      name: "Akash",
+      role: "College student",
+    },
   ];
 
   return (
-    <section className="bg-[var(--paper)] px-5 py-20 text-[var(--ink)]">
+    <section className="bg-[var(--ink)] px-5 py-24 text-[var(--cream)] reveal-text">
       <div className="mx-auto max-w-7xl">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="font-display text-4xl">What guests come in for</h2>
-          <button className="inline-flex h-10 w-10 items-center justify-center border border-[var(--line-dark)]" onClick={() => setPaused(!paused)} aria-label="Pause testimonials"><Pause className="h-4 w-4" /></button>
-        </div>
-        <div className="marquee mt-8 overflow-hidden" data-paused={paused}>
-          <div className="marquee-track">
-            {[...quotes, ...quotes].map((quote, index) => (
-              <blockquote key={`${quote}-${index}`} className="mx-3 inline-flex w-[330px] whitespace-normal bg-white p-6 text-lg leading-7 shadow-sm">
-                &quot;{quote}&quot;
-              </blockquote>
-            ))}
-          </div>
+        <SectionHeading kicker="Testimonials" title="What guests keep coming back for" />
+        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {voices.map((voice, index) => (
+            <motion.blockquote
+              key={voice.name}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ delay: index * 0.08 }}
+              className="rounded-[2rem] border border-[rgba(255,255,255,0.08)] bg-white/8 p-8 text-sm leading-7 shadow-[0_25px_55px_rgba(0,0,0,0.1)]"
+            >
+              <p className="text-lg leading-8 text-[var(--cream)]">“{voice.quote}”</p>
+              <footer className="mt-6 text-sm text-[var(--accent-soft)]">
+                <p className="font-semibold text-[var(--cream)]">{voice.name}</p>
+                <p className="text-[var(--muted)]">{voice.role}</p>
+              </footer>
+            </motion.blockquote>
+          ))}
         </div>
       </div>
     </section>
@@ -728,17 +801,25 @@ function VisitAndReserve() {
 
 function Footer() {
   return (
-    <footer className="bg-[var(--ink)] px-5 pb-10 text-[var(--cream)]">
-      <div className="mx-auto flex max-w-7xl flex-col gap-8 border-t border-white/12 pt-10 md:flex-row md:items-end md:justify-between">
+    <footer className="bg-[var(--ink)] px-5 pb-14 text-[var(--cream)]">
+      <div className="mx-auto grid max-w-7xl gap-10 border-t border-white/12 pt-10 md:grid-cols-[1.2fr_1fr_0.9fr]">
         <div>
           <Logo />
-          <p className="mt-4 max-w-md text-sm leading-6 text-white/56">{brand.tagline}</p>
+          <p className="mt-4 max-w-md text-sm leading-7 text-white/64">{brand.tagline}</p>
         </div>
-        <div className="flex flex-wrap items-center gap-4 text-sm text-white/60">
-          <a href={brand.instagram} aria-label="Instagram"><Camera className="h-5 w-5" /></a>
-          <a href={brand.facebook} aria-label="Facebook"><MessageCircle className="h-5 w-5" /></a>
-          <a href={brand.mapsUrl}>Directions</a>
-          <span>© 2026 {brand.name}</span>
+        <div className="grid gap-3 text-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--accent-dark)]">Contact</p>
+          <a className="transition hover:text-[var(--accent)]" href={`mailto:${brand.email}`}>{brand.email}</a>
+          <a className="transition hover:text-[var(--accent)]" href={`tel:${brand.phone}`}>{brand.phone}</a>
+          <a className="transition hover:text-[var(--accent)]" href={brand.mapsUrl}>Get directions</a>
+        </div>
+        <div className="grid gap-3 text-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--accent-dark)]">Follow</p>
+          <div className="flex items-center gap-4 text-[var(--cream)]/80">
+            <a href={brand.instagram} aria-label="Instagram" className="transition hover:text-[var(--accent)]"><Camera className="h-5 w-5" /></a>
+            <a href={brand.facebook} aria-label="Facebook" className="transition hover:text-[var(--accent)]"><MessageCircle className="h-5 w-5" /></a>
+          </div>
+          <p className="pt-4 text-xs uppercase tracking-[0.22em] text-white/40">© 2026 {brand.name}</p>
         </div>
       </div>
     </footer>
@@ -805,6 +886,7 @@ export function CafeExperience() {
         <MenuBook />
         <About />
         <Featured />
+        <Team />
         <Gallery />
         <Testimonials />
         <VisitAndReserve />

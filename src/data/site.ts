@@ -6,11 +6,11 @@ export const brand = {
   tagline: "From bold brews to vibrant bites, Nizamabad gets a cafe experience built for every sip, plate, and pause.",
   address: "Pragathi Nagar, Nizamabad, Telangana 503003",
   phone: "7691903806",
-  email: "hello@thecoffeeevolution.example",
+  email: "nizamabad@thecoffeeevolution.com",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Pragathi%20Nagar%2C%20Nizamabad%2C%20Telangana%20503003",
   mapsEmbedUrl: "https://www.google.com/maps?q=Pragathi%20Nagar%2C%20Nizamabad%2C%20Telangana%20503003&output=embed",
-  instagram: "https://instagram.com/",
-  facebook: "https://facebook.com/",
+  instagram: "https://instagram.com/thecoffeeevolution_nizamabad",
+  facebook: "https://facebook.com/thecoffeeevolution",
 };
 
 export const hours = [
