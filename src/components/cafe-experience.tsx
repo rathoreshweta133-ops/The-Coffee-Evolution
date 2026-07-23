@@ -23,7 +23,7 @@ import {
   X,
 } from "lucide-react";
 import { galleryImages } from "@/data/gallery";
-import { featuredItems, menuCategories, menuItems, MenuCategory } from "@/data/menu";
+import { featuredItems, menuCategories, menuItems, MenuCategory, MenuItem } from "@/data/menu";
 import { brand, hours, stats } from "@/data/site";
 import { Logo } from "./logo";
 
@@ -351,6 +351,8 @@ function MenuBook() {
   const [open, setOpen] = useState(false);
   const [veganOnly, setVeganOnly] = useState(false);
   const [query, setQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [direction, setDirection] = useState(1);
 
   const items = useMemo(() => {
     return menuItems[category].filter((item) => {
@@ -359,6 +361,59 @@ function MenuBook() {
       return matchesQuery && matchesVegan;
     });
   }, [category, query, veganOnly]);
+
+  const pageSize = 5;
+  const pages = useMemo(() => {
+    const result: MenuItem[][] = [];
+    for (let index = 0; index < items.length; index += pageSize) {
+      result.push(items.slice(index, index + pageSize));
+    }
+    return result.length ? result : [[]];
+  }, [items]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+    setDirection(1);
+  }, [items]);
+
+  const pageCount = pages.length;
+  const pageItems = pages[currentPage - 1] ?? [];
+
+  const pageDecorations = [
+    [
+      { symbol: "☕", position: "top-6 left-6 text-[1.5rem]" },
+      { symbol: "✿", position: "bottom-12 left-10 text-[1.6rem]" },
+      { symbol: "⚫", position: "top-24 right-10 text-[1.1rem]" },
+    ],
+    [
+      { symbol: "☕", position: "top-5 right-8 text-[1.4rem]" },
+      { symbol: "❁", position: "left-10 top-28 text-[1.3rem]" },
+      { symbol: "✧", position: "bottom-10 right-14 text-[1.5rem]" },
+    ],
+    [
+      { symbol: "☕", position: "left-8 top-10 text-[1.4rem]" },
+      { symbol: "✿", position: "right-8 top-24 text-[1.5rem]" },
+      { symbol: "⚫", position: "bottom-10 left-14 text-[1.1rem]" },
+    ],
+  ];
+  const accents = pageDecorations[(currentPage - 1) % pageDecorations.length];
+
+  const pageVariants = {
+    enter: (dir: number) => ({ x: dir * 48, rotateY: dir * -15, opacity: 0 }),
+    center: { x: 0, rotateY: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir * -48, rotateY: dir * 15, opacity: 0 }),
+  };
+
+  const setCategoryAndOpen = (item: MenuCategory) => {
+    setCategory(item);
+    setOpen(true);
+  };
+
+  const handlePageChange = (nextPage: number) => {
+    if (nextPage < 1 || nextPage > pageCount) return;
+    setDirection(nextPage > currentPage ? 1 : -1);
+    setCurrentPage(nextPage);
+  };
 
   return (
     <section id="menu" className="bg-[var(--paper)] px-5 py-24 text-[var(--ink)] md:py-32">
@@ -385,7 +440,7 @@ function MenuBook() {
                   <button
                     key={item}
                     type="button"
-                    onClick={() => setCategory(item)}
+                    onClick={() => setCategoryAndOpen(item)}
                     className={clsx("category-tab", category === item && "category-tab-active")}
                   >
                     {item}
@@ -405,49 +460,84 @@ function MenuBook() {
             </div>
             <AnimatePresence mode="wait">
               <motion.div
-                key={category + String(veganOnly) + query}
-                initial={{ rotateY: -18, x: 20, opacity: 0 }}
-                animate={{ rotateY: 0, x: 0, opacity: 1 }}
-                exit={{ rotateY: 18, x: -20, opacity: 0 }}
-                transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                key={`${category}-${currentPage}-${veganOnly}-${query}`}
+                custom={direction}
+                variants={pageVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                 className="book-page right-page"
               >
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent-dark)]">{category}</p>
-                    <p className="text-sm uppercase tracking-[0.24em] text-[var(--accent)]">Crafted selections</p>
-                  </div>
-                  <span className="text-xs uppercase tracking-[0.28em] text-[var(--muted)]">Page 12</span>
-                </div>
-                <div className="mt-6 grid gap-4">
-                  {items.map((item) => (
-                    <article key={item.name} className="menu-item rounded-[1.75rem] border border-[var(--line-dark)] bg-[rgba(255,255,255,0.92)] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-                      <div className="flex items-start gap-4">
-                        {item.image ? (
-                          <Image src={item.image} alt={`${item.name} at ${brand.name}`} width={104} height={104} className="h-24 w-24 shrink-0 rounded-3xl object-cover shadow-[0_10px_30px_rgba(0,0,0,0.16)]" />
-                        ) : (
-                          <div className="grid h-24 w-24 shrink-0 place-items-center rounded-3xl bg-[var(--ink)] text-2xl font-bold uppercase tracking-[0.16em] text-[var(--accent)]" aria-hidden="true">
-                            {item.name.slice(0, 1)}
-                          </div>
-                        )}
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-start justify-between gap-4">
-                            <h4 className="font-display text-2xl text-[var(--ink)]">{item.name}</h4>
-                            <span className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--accent-dark)]">{item.price}</span>
-                          </div>
-                          <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.description}</p>
-                          <div className="mt-4 flex flex-wrap gap-2">
-                            {item.tags?.map((tag) => (
-                              <span key={tag} className="tag">{tag}</span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </article>
+                <div className="page-accents" aria-hidden="true">
+                  {accents.map((accent, index) => (
+                    <span key={index} className={`page-accent ${accent.position}`}>
+                      {accent.symbol}
+                    </span>
                   ))}
+                </div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent-dark)]">{category}</p>
+                      <p className="text-sm uppercase tracking-[0.24em] text-[var(--accent)]">Crafted selections</p>
+                    </div>
+                    <span className="text-xs uppercase tracking-[0.28em] text-[var(--muted)]">Page {currentPage} of {pageCount}</span>
+                  </div>
+                  <div className="mt-6 grid gap-4">
+                    {pageItems.length ? (
+                      pageItems.map((item) => (
+                        <article key={item.name} className="menu-item rounded-[1.75rem] border border-[var(--line-dark)] bg-[rgba(255,255,255,0.92)] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+                          <div className="flex items-start gap-4">
+                            {item.image ? (
+                              <Image src={item.image} alt={`${item.name} at ${brand.name}`} width={104} height={104} className="h-24 w-24 shrink-0 rounded-3xl object-cover shadow-[0_10px_30px_rgba(0,0,0,0.16)]" />
+                            ) : (
+                              <div className="grid h-24 w-24 shrink-0 place-items-center rounded-3xl bg-[var(--ink)] text-2xl font-bold uppercase tracking-[0.16em] text-[var(--accent)]" aria-hidden="true">
+                                {item.name.slice(0, 1)}
+                              </div>
+                            )}
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-start justify-between gap-4">
+                                <h4 className="font-display text-2xl text-[var(--ink)]">{item.name}</h4>
+                                <span className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--accent-dark)]">{item.price}</span>
+                              </div>
+                              <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.description}</p>
+                              <div className="mt-4 flex flex-wrap gap-2">
+                                {item.tags?.map((tag) => (
+                                  <span key={tag} className="tag">{tag}</span>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </article>
+                      ))
+                    ) : (
+                      <div className="rounded-[1.75rem] border border-[var(--line-dark)] bg-[rgba(255,255,255,0.92)] p-8 text-sm text-[var(--muted)] shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+                        No matching items were found. Try a different search term or category.
+                      </div>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             </AnimatePresence>
+            <button
+              type="button"
+              className={clsx("page-turn page-turn-left", currentPage === 1 && "page-turn-disabled")}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              aria-label="Previous page"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              className={clsx("page-turn page-turn-right", currentPage === pageCount && "page-turn-disabled")}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === pageCount}
+              aria-label="Next page"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </div>

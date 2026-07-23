@@ -104,8 +104,8 @@ a {
 
 .book-shell {
   position: relative;
+  width: min(900px, 100%);
   min-height: 520px;
-  max-width: 1200px;
   margin: 0 auto;
   perspective: 1800px;
 }
@@ -128,15 +128,146 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(2rem, 4vw, 4rem);
+  padding: clamp(1.75rem, 4vw, 3.2rem);
   background:
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 35%),
     linear-gradient(180deg, #2a1f16 0%, #1d1510 40%, #150f0b 100%);
   border-left: 14px solid rgba(224, 189, 139, 0.95);
   border-radius: 2rem;
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
   transform-origin: left center;
   transition: transform 800ms cubic-bezier(.22, 1, .36, 1), opacity 500ms ease;
+}
+
+.book-pages {
+  position: relative;
+  display: grid;
+  width: 100%;
+  max-width: 900px;
+  min-height: 520px;
+  grid-template-columns: 0.92fr 1.08fr;
+  background: rgba(255, 251, 244, 0.96);
+  border-radius: 2.25rem;
+  box-shadow: 0 40px 120px rgba(15, 10, 8, 0.22);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 500ms ease 180ms, transform 500ms ease 180ms;
+  overflow: hidden;
+}
+
+.book-pages::before {
+  content: "";
+  position: absolute;
+  inset: 2rem;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(21, 16, 13, 0), rgba(21, 16, 13, 0.12), rgba(21, 16, 13, 0));
+  pointer-events: none;
+}
+
+.book-open .book-pages {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.book-page {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 3rem);
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.96), rgba(245, 238, 228, 0.98) 55%);
+  box-shadow: inset 0 0 0 1px rgba(21, 16, 13, 0.04);
+  overflow: hidden;
+}
+
+.left-page {
+  border-right: 1px solid rgba(21, 16, 13, 0.08);
+}
+
+.right-page {
+  overflow: hidden;
+}
+
+.page-accents {
+  pointer-events: none;
+}
+
+.page-accent {
+  position: absolute;
+  z-index: 0;
+  opacity: 0.16;
+  color: rgba(21, 16, 13, 0.85);
+  font-family: Georgia, serif;
+  line-height: 1;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+.page-turn {
+  position: absolute;
+  top: 50%;
+  z-index: 30;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(21, 16, 13, 0.14);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  box-shadow: 0 18px 32px rgba(21, 16, 13, 0.16);
+}
+
+.page-turn-left {
+  left: -1.5rem;
+}
+
+.page-turn-right {
+  right: -1.5rem;
+}
+
+.page-turn-disabled,
+.page-turn:disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.page-count {
+  display: inline-flex;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(21, 16, 13, 0.12);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--muted);
+}
+
+@media (max-width: 1023px) {
+  .book-shell {
+    width: min(100%, 94vw);
+  }
+
+  .book-pages {
+    grid-template-columns: 1fr;
+    max-width: 720px;
+  }
+
+  .book-pages::before {
+    display: none;
+  }
+
+  .book-cover {
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  .page-turn-left,
+  .page-turn-right {
+    left: auto;
+    right: auto;
+    position: relative;
+    transform: none;
+    margin-top: 1rem;
+  }
 }
 
 .book-open .book-cover {
