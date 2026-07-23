@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   title: `${siteConfig.siteName} | Specialty Coffeehouse`,
   description: siteConfig.description,
   icons: {
-    icon: "/src/app/favicon.ico",
-    shortcut: "/src/app/favicon.ico",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
