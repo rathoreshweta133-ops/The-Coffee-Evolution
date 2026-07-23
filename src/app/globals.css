@@ -445,6 +445,73 @@ a {
   color: var(--accent-dark);
 }
 
+.team-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.team-card {
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.team-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 60px rgba(21, 16, 13, 0.16);
+}
+
+.gallery-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.gallery-card {
+  min-height: 18rem;
+}
+
+.gallery-card img,
+.gallery-card picture,
+.gallery-card video {
+  min-height: 100%;
+}
+
+.gallery-card-copy {
+  backdrop-filter: blur(4px);
+}
+
+.testi-track {
+  position: relative;
+  min-height: 220px;
+}
+
+.testi-item {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 350ms ease, transform 350ms ease;
+}
+
+.testi-item.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.testi-dot {
+  width: 0.85rem;
+  height: 0.85rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.testi-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.testi-dot:hover {
+  background: rgba(216, 167, 99, 0.35);
+}
+
 .field {
   width: 100%;
   border: 1px solid var(--line-dark);

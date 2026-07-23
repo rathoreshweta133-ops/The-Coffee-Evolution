@@ -23,7 +23,7 @@ import {
   X,
 } from "lucide-react";
 import { galleryImages } from "@/data/gallery";
-import { featuredItems, menuCategories, menuItems, MenuCategory, MenuItem } from "@/data/menu";
+import { menuCategories, menuItems, MenuCategory, MenuItem } from "@/data/menu";
 import { brand, hours, stats } from "@/data/site";
 import { Logo } from "./logo";
 
@@ -577,34 +577,34 @@ function About() {
   );
 }
 
-function Featured() {
+function Team() {
+  const members = [
+    { initials: "RK", name: "Ravi Kumar", role: "Store Manager" },
+    { initials: "AS", name: "Anjali S.", role: "Head Barista" },
+    { initials: "MP", name: "Mahesh P.", role: "Chef" },
+    { initials: "SN", name: "Sneha N.", role: "Cafe Associate" },
+  ];
+
   return (
-    <section className="bg-[var(--paper)] px-5 py-24 text-[var(--ink)] reveal-text md:py-32">
+    <section id="team" className="bg-[var(--paper)] px-5 py-24 text-[var(--ink)] reveal-text md:py-32">
       <div className="mx-auto max-w-7xl">
-        <SectionHeading kicker="Highlights" title="House favorites with a little theatre." tone="dark" />
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {featuredItems.map((item, index) => (
+        <SectionHeading kicker="Meet the team" title="The people behind the counter" tone="dark" />
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)]">Every cup and plate here passes through hands that care about getting it right.</p>
+        <div className="team-grid mt-12 grid gap-6 lg:grid-cols-4">
+          {members.map((member, index) => (
             <motion.article
-              key={item.name}
-              initial={{ opacity: 0, y: 28 }}
+              key={member.name}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.35 }}
               transition={{ delay: index * 0.08 }}
-              className="group overflow-hidden rounded-[2rem] bg-white shadow-[0_20px_70px_rgba(43,30,22,.08)]"
+              className="team-card rounded-[2rem] border border-[rgba(21,16,13,0.08)] bg-white p-6 text-center shadow-[0_20px_50px_rgba(21,16,13,0.08)]"
             >
-              <div className="relative aspect-[4/5] overflow-hidden">
-                {item.image ? (
-                  <Image src={item.image} alt={`${item.name} at ${brand.name}`} fill className="object-cover transition duration-700 group-hover:scale-110" />
-                ) : (
-                  <div className="grid h-full place-items-center bg-[var(--ink)] p-6 text-center font-display text-5xl text-[var(--accent)]">
-                    {item.name}
-                  </div>
-                )}
+              <div className="avatar mb-6 inline-flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-[var(--accent-dark)] to-[var(--accent)] text-3xl font-bold text-[var(--cream)] shadow-[0_16px_42px_rgba(184,112,47,0.18)]">
+                {member.initials}
               </div>
-              <div className="p-6">
-                <h3 className="font-display text-2xl">{item.name}</h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.description}</p>
-              </div>
+              <h4 className="font-display text-xl text-[var(--ink)]">{member.name}</h4>
+              <p className="mt-2 text-sm text-[var(--muted)]">{member.role}</p>
             </motion.article>
           ))}
         </div>
@@ -613,131 +613,66 @@ function Featured() {
   );
 }
 
-function Team() {
-  const members = [
-    { name: "Sara", role: "Outlet manager", note: "Curates daily menu flow and keeps the service polished." },
-    { name: "Anand", role: "Head barista", note: "Brews every espresso, latte, and pour with precision and warmth." },
-    { name: "Rhea", role: "Guest host", note: "Welcomes guests, matches tables, and makes every visit feel easy." },
-  ];
-
-  return (
-    <section className="bg-[var(--paper)] px-5 py-24 text-[var(--ink)] reveal-text md:py-32">
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading kicker="Meet the team" title="The Nizamabad crew behind every coffee, plate, and friendly hello." tone="dark" />
-        <div className="mt-12 grid gap-8 lg:grid-cols-[1.05fr_.95fr]">
-          <div className="relative overflow-hidden rounded-[2rem] bg-[var(--ink)] shadow-[0_30px_90px_rgba(21,16,13,.16)]">
-            <div className="absolute inset-0 bg-gradient-to-br from-[rgba(216,167,99,0.14)] via-transparent to-[rgba(255,255,255,0.02)]" />
-            <Image src="/images/gallery/team-at-outlet.jpeg" alt="Team members at The Coffee Evolution Nizamabad" width={960} height={720} className="relative h-full w-full object-cover" />
-          </div>
-          <div className="grid gap-6 rounded-[2rem] border border-[var(--line-dark)] bg-white/90 p-8 shadow-[0_30px_70px_rgba(21,16,13,.12)]">
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[var(--accent-dark)]">Outpost crew</p>
-            <h3 className="font-display text-5xl">Passion, polish, and a warm local welcome.</h3>
-            <p className="text-[var(--muted)]">A small, dedicated Nizamabad team that pours care into every coffee, plate, and late-evening table.</p>
-            <div className="grid gap-4">
-              {members.map((member) => (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  className="rounded-[1.5rem] border border-[var(--line)] bg-[var(--paper)] p-5"
-                >
-                  <p className="font-display text-2xl text-[var(--ink)]">{member.name}</p>
-                  <p className="mt-1 text-sm uppercase tracking-[0.22em] text-[var(--accent-dark)]">{member.role}</p>
-                  <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{member.note}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Gallery() {
-  const [active, setActive] = useState<number | null>(null);
-
-  const step = (direction: number) => {
-    setActive((current) => {
-      if (current === null) return current;
-      return (current + direction + galleryImages.length) % galleryImages.length;
-    });
-  };
+  const images = galleryImages.slice(0, 6);
 
   return (
-    <section id="gallery" className="bg-[var(--ink)] px-5 py-24 text-[var(--cream)] md:py-32">
+    <section id="gallery" className="bg-[var(--ink)] px-5 py-24 text-[var(--cream)] reveal-text md:py-32">
       <div className="mx-auto max-w-7xl">
-        <SectionHeading kicker="Gallery" title="Interior light, polished plates, and the quieter corners." />
-        <div className="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3">
-          {galleryImages.map((image, index) => (
-            <button key={image.title} type="button" onClick={() => setActive(index)} className="image-reveal group mb-5 block w-full overflow-hidden text-left">
-              <Image src={image.src} alt={image.alt} width={800} height={index % 2 ? 1040 : 760} className="w-full object-cover transition duration-700 group-hover:scale-105" />
-              <span className="mt-3 block text-sm font-semibold text-white/70">{image.title}</span>
-            </button>
+        <SectionHeading kicker="Gallery" title="Interior light, polished plates, and easy Nizamabad evenings." />
+        <div className="gallery-grid mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {images.map((image, index) => (
+            <div key={image.title} className="gallery-card relative overflow-hidden rounded-[2rem] bg-white/5 shadow-[0_30px_70px_rgba(0,0,0,0.16)]" style={{ transitionDelay: `${index * 0.05}s` }}>
+              <Image src={image.src} alt={image.alt} width={720} height={540} className="h-full w-full object-cover" />
+              <div className="gallery-card-copy absolute inset-x-0 bottom-0 bg-gradient-to-t from-[rgba(21,16,13,0.92)] to-transparent px-5 py-5">
+                <p className="text-sm uppercase tracking-[0.24em] text-[var(--accent)]">{image.title}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
-      <AnimatePresence>
-        {active !== null ? (
-          <motion.div className="fixed inset-0 z-[60] bg-black/92 p-5" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <button className="absolute right-5 top-5 z-10 h-11 w-11 border border-white/25 text-white" onClick={() => setActive(null)} aria-label="Close lightbox"><X className="mx-auto h-5 w-5" /></button>
-            <button className="absolute left-5 top-1/2 z-10 h-12 w-12 -translate-y-1/2 border border-white/25 text-white" onClick={() => step(-1)} aria-label="Previous image"><ChevronLeft className="mx-auto h-6 w-6" /></button>
-            <button className="absolute right-5 top-1/2 z-10 h-12 w-12 -translate-y-1/2 border border-white/25 text-white" onClick={() => step(1)} aria-label="Next image"><ChevronRight className="mx-auto h-6 w-6" /></button>
-            <motion.div layoutId={`gallery-${active}`} className="grid h-full place-items-center">
-              <Image src={galleryImages[active].src} alt={galleryImages[active].alt} width={1300} height={900} className="max-h-[86vh] w-auto object-contain" />
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
     </section>
   );
 }
 
 function Testimonials() {
-  const voices = [
-    {
-      quote: "The espresso is bold, the plates arrive polished, and the atmosphere feels like a premium local lounge.",
-      name: "Priya",
-      role: "Regular guest",
-    },
-    {
-      quote: "Perfect for family evenings and quick work catch-ups — everything tastes fresh, bright, and on point.",
-      name: "Rahul",
-      role: "Food blogger",
-    },
-    {
-      quote: "The team is welcoming, and the menu surprises me every time with new favorites and strong coffee.",
-      name: "Sneha",
-      role: "Creative freelancer",
-    },
-    {
-      quote: "From frappes to sandwiches, every order feels carefully plated and easy to enjoy.",
-      name: "Akash",
-      role: "College student",
-    },
+  const testimonials = [
+    { quote: "Coffee, pizza, shakes, and an easy room for long Nizamabad evenings.", who: "Priya, regular guest" },
+    { quote: "A polished cafe stop for friends, families, and dessert plans.", who: "Arjun, weekend visitor" },
+    { quote: "The menu has real range: coffee, coolers, pasta, bowls, affogato.", who: "Fatima, first-time guest" },
+    { quote: "Warm service and a brand feel that lands from the first sip.", who: "Karthik, local regular" },
   ];
 
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % testimonials.length);
+    }, 5500);
+    return () => window.clearInterval(interval);
+  }, [testimonials.length]);
+
   return (
-    <section className="bg-[var(--ink)] px-5 py-24 text-[var(--cream)] reveal-text">
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading kicker="Testimonials" title="What guests keep coming back for" />
-        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {voices.map((voice, index) => (
-            <motion.blockquote
-              key={voice.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ delay: index * 0.08 }}
-              className="rounded-[2rem] border border-[rgba(255,255,255,0.08)] bg-white/8 p-8 text-sm leading-7 shadow-[0_25px_55px_rgba(0,0,0,0.1)]"
-            >
-              <p className="text-lg leading-8 text-[var(--cream)]">“{voice.quote}”</p>
-              <footer className="mt-6 text-sm text-[var(--accent-soft)]">
-                <p className="font-semibold text-[var(--cream)]">{voice.name}</p>
-                <p className="text-[var(--muted)]">{voice.role}</p>
-              </footer>
-            </motion.blockquote>
+    <section className="bg-[var(--paper)] px-5 py-24 text-[var(--ink)] reveal-text md:py-32">
+      <div className="mx-auto max-w-7xl text-center">
+        <SectionHeading kicker="Reviews" title="What guests come in for" tone="dark" />
+        <div className="testi-track relative mx-auto mt-12 max-w-2xl min-h-[180px] text-left">
+          {testimonials.map((item, index) => (
+            <div key={item.who} className={clsx("testi-item", activeIndex === index && "active")}>
+              <p className="text-2xl font-display italic leading-snug text-[var(--ink)]">“{item.quote}”</p>
+              <div className="who mt-6 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">{item.who}</div>
+            </div>
+          ))}
+        </div>
+        <div className="testi-dots mt-10 flex justify-center gap-3">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              className={clsx("testi-dot rounded-full transition", activeIndex === index ? "active" : "")}
+              aria-label={`Show testimonial ${index + 1}`}
+            />
           ))}
         </div>
       </div>
@@ -840,25 +775,42 @@ function VisitAndReserve() {
 function Footer() {
   return (
     <footer className="bg-[var(--ink)] px-5 pb-14 text-[var(--cream)]">
-      <div className="mx-auto grid max-w-7xl gap-10 border-t border-white/12 pt-10 md:grid-cols-[1.2fr_1fr_0.9fr]">
-        <div>
-          <Logo />
-          <p className="mt-4 max-w-md text-sm leading-7 text-white/64">{brand.tagline}</p>
+      <div className="mx-auto grid max-w-7xl gap-10 border-b border-white/10 pb-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="space-y-4">
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[var(--accent-dark)] to-[var(--accent)] text-[var(--cream)] text-xl">☕</div>
+            <div>
+              <h4 className="text-xl font-semibold text-[var(--cream)]">The Coffee Evolution</h4>
+              <p className="text-sm leading-6 text-white/60">Pragathi Nagar, Nizamabad</p>
+            </div>
+          </div>
+          <p className="max-w-sm text-sm leading-7 text-white/60">From the first sip to the last bite, this cafe serves a relaxed local spot for friends, dates, and evening plans.</p>
+        </div>
+        <div className="grid gap-3 text-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--accent-dark)]">Explore</p>
+          <a className="transition hover:text-[var(--accent)]" href="#hero">Home</a>
+          <a className="transition hover:text-[var(--accent)]" href="#menu">Menu</a>
+          <a className="transition hover:text-[var(--accent)]" href="#about">About</a>
+          <a className="transition hover:text-[var(--accent)]" href="#gallery">Gallery</a>
         </div>
         <div className="grid gap-3 text-sm">
           <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--accent-dark)]">Contact</p>
-          <a className="transition hover:text-[var(--accent)]" href={`mailto:${brand.email}`}>{brand.email}</a>
+          <p className="text-sm text-white/70">{brand.address}</p>
           <a className="transition hover:text-[var(--accent)]" href={`tel:${brand.phone}`}>{brand.phone}</a>
-          <a className="transition hover:text-[var(--accent)]" href={brand.mapsUrl}>Get directions</a>
+          <a className="transition hover:text-[var(--accent)]" href={`mailto:${brand.email}`}>{brand.email}</a>
         </div>
         <div className="grid gap-3 text-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--accent-dark)]">Follow</p>
-          <div className="flex items-center gap-4 text-[var(--cream)]/80">
-            <a href={brand.instagram} aria-label="Instagram" className="transition hover:text-[var(--accent)]"><Camera className="h-5 w-5" /></a>
-            <a href={brand.facebook} aria-label="Facebook" className="transition hover:text-[var(--accent)]"><MessageCircle className="h-5 w-5" /></a>
+          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--accent-dark)]">Hours</p>
+          <p className="text-sm text-white/70">Open Daily</p>
+          <p className="text-sm">12:30 PM — 10:30 PM</p>
+          <div className="flex items-center gap-3 pt-2 text-[var(--cream)]">
+            <a href={brand.instagram} aria-label="Instagram" className="transition hover:text-[var(--accent)]">IG</a>
+            <a href={brand.facebook} aria-label="Facebook" className="transition hover:text-[var(--accent)]">FB</a>
           </div>
-          <p className="pt-4 text-xs uppercase tracking-[0.22em] text-white/40">© 2026 {brand.name}</p>
         </div>
+      </div>
+      <div className="mx-auto mt-8 max-w-7xl text-sm text-white/50 md:flex md:items-center md:justify-between">
+        <span>© 2026 The Coffee Evolution Nizamabad. All rights reserved.</span>
       </div>
     </footer>
   );
@@ -923,7 +875,6 @@ export function CafeExperience() {
         <Hero />
         <MenuBook />
         <About />
-        <Featured />
         <Team />
         <Gallery />
         <Testimonials />

@@ -10,6 +10,29 @@ export type MenuItem = {
 
 export const menuCategories: MenuCategory[] = ["Coffee", "Cold Drinks", "Italian & Snacks", "Global Bowls", "Dessert"];
 
+export const menuCategoryInfo: Record<MenuCategory, { label: string; subtitle: string }> = {
+  "Coffee": {
+    label: "Coffee",
+    subtitle: "Crafted hot & espresso-based selections",
+  },
+  "Cold Drinks": {
+    label: "Cold Drinks",
+    subtitle: "Frappes, iced coolers, and chilled coffee",
+  },
+  "Italian & Snacks": {
+    label: "Italian & Snacks",
+    subtitle: "Sharing plates made for every table",
+  },
+  "Global Bowls": {
+    label: "Global Bowls",
+    subtitle: "Rice bowls, salads, and light mains",
+  },
+  Dessert: {
+    label: "Dessert",
+    subtitle: "Sweet endings for every meal",
+  },
+};
+
 export const menuItems: Record<MenuCategory, MenuItem[]> = {
   "Coffee": [
     { name: "Cappuccino", description: "Equal parts espresso, steamed milk, and silky foam.", price: "Rs. 159", image: "/images/menu/coffee/latte-art.jpeg" },
