@@ -297,16 +297,17 @@ function Hero() {
 function HeroImage({ staticFrame }: { staticFrame: boolean }) {
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[520px] overflow-hidden rounded-[2.5rem] shadow-[0_40px_90px_rgba(0,0,0,0.32)]" aria-hidden="true">
-      <div className="absolute inset-0 overflow-hidden rounded-[2.5rem]">
-        <Image
-          src="/images/hero/coffee-cup-hero.jpg"
-          alt="A white cup and saucer with steaming coffee on a warm wooden table"
-          fill
-          priority
-          sizes="(min-width: 1024px) 520px, (min-width: 768px) 420px, 100vw"
-          className={clsx("hero-photo object-cover", staticFrame && "hero-photo-static")}
+      <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-black/10">
+        <video
+          className={clsx("hero-photo h-full w-full object-cover", staticFrame && "hero-photo-static")}
+          src="/images/hero/coffee-cup-hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
         />
-        <div className="hero-photo-scrim" />
         <div className={clsx("hero-steam-overlay", staticFrame && "hero-steam-static")}>
           <span className="hero-steam-line hero-steam-line-1" />
           <span className="hero-steam-line hero-steam-line-2" />
