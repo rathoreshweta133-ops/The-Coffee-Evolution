@@ -248,8 +248,7 @@ function Hero() {
     if (reduceMotion || alreadyPlayed) {
       gsap.set(".preloader", { opacity: 0, pointerEvents: "none" });
       gsap.set(".hero-copy > *", { opacity: 1, y: 0 });
-      gsap.set(".espresso-stream, .milk-stream, .cup-fill, .steam-line", { opacity: 1, scaleY: 1, y: 0 });
-      gsap.set(".latte-swirl", { strokeDashoffset: 0 });
+      gsap.set(".hero-photo, .hero-steam-line", { opacity: 1, y: 0, scale: 1 });
       return;
     }
     sessionStorage.setItem("pour-intro-played", "true");
@@ -257,12 +256,9 @@ function Hero() {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.from(".preloader-mark", { scale: 0.7, opacity: 0, duration: 0.5 })
         .to(".preloader", { opacity: 0, pointerEvents: "none", duration: 0.55, delay: 0.25 })
-        .from(".espresso-stream", { scaleY: 0, transformOrigin: "top", duration: 0.75 }, "-=.1")
-        .from(".cup-fill", { scaleY: 0, transformOrigin: "bottom", duration: 0.85 }, "-=.35")
-        .from(".milk-stream", { scaleY: 0, transformOrigin: "top", duration: 0.8 }, "-=.2")
-        .from(".latte-swirl", { strokeDashoffset: 300, duration: 1.15 }, "-=.45")
-        .from(".steam-line", { y: 18, opacity: 0, stagger: 0.12, duration: 0.75 }, "-=.8")
-        .from(".hero-copy > *", { y: 28, opacity: 0, stagger: 0.12, duration: 0.8 }, "-=.35");
+        .from(".hero-photo", { opacity: 0, scale: 0.96, duration: 1 }, "-=.2")
+        .from(".hero-steam-line", { y: 18, opacity: 0, stagger: 0.14, duration: 0.75 }, "-=.8")
+        .from(".hero-copy > *", { y: 28, opacity: 0, stagger: 0.12, duration: 0.8 }, "-=.85");
     }, ref);
     return () => ctx.revert();
   }, [reduceMotion]);
@@ -289,7 +285,7 @@ function Hero() {
             <MagneticButton href="#visit" variant="secondary">Plan Your Visit</MagneticButton>
           </div>
         </div>
-        <PourIllustration staticFrame={skipIntro} />
+        <HeroImage staticFrame={skipIntro} />
       </div>
       <a href="#menu" className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-white/60">
         <MousePointer2 className="h-4 w-4 animate-bounce" /> Scroll
@@ -298,50 +294,25 @@ function Hero() {
   );
 }
 
-function PourIllustration({ staticFrame }: { staticFrame: boolean }) {
+function HeroImage({ staticFrame }: { staticFrame: boolean }) {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[520px]" aria-hidden="true">
-      <div className="absolute inset-0 rounded-full bg-[var(--accent)]/10 blur-3xl" />
-      <svg viewBox="0 0 520 520" className={clsx("relative h-full w-full drop-shadow-2xl", staticFrame && "static-pour")}>
-        <defs>
-          <linearGradient id="cupBody" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#f8f2e9" />
-            <stop offset="60%" stopColor="#e6d8c3" />
-            <stop offset="100%" stopColor="#d3bea4" />
-          </linearGradient>
-          <linearGradient id="coffeeSurface" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#7f4f34" />
-            <stop offset="80%" stopColor="#4b2e1b" />
-          </linearGradient>
-          <linearGradient id="liquidGloss" x1="0" x2="1" y1="0" y2="1">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.72)" />
-            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-          </linearGradient>
-          <radialGradient id="cupHighlight" cx="50%" cy="20%" r="60%">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.72)" />
-            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-          </radialGradient>
-        </defs>
-        <ellipse cx="260" cy="180" rx="120" ry="38" fill="#f1e8de" stroke="#d8a763" strokeWidth="6" />
-        <path d="M140 180 C140 260, 140 340, 260 352 C380 340, 380 260, 380 180 Z" fill="url(#cupBody)" stroke="#c9b199" strokeWidth="6" />
-        <path d="M140 180 C140 188, 145 204, 163 228 C190 276, 230 295, 260 303 C290 295, 330 276, 357 228 C375 204, 380 188, 380 180 Z" fill="url(#coffeeSurface)" />
-        <ellipse cx="260" cy="178" rx="96" ry="22" fill="url(#liquidGloss)" opacity="0.82" />
-        <path d="M190 150 C208 132, 252 132, 270 150" fill="none" stroke="#f7e4d0" strokeWidth="6" strokeLinecap="round" opacity="0.78" />
-        <path d="M173 170 C190 156, 236 156, 253 170" fill="none" stroke="#fbf0dc" strokeWidth="4" strokeLinecap="round" opacity="0.65" />
-        <path d="M212 162 C224 150, 256 150, 268 162" fill="none" stroke="#fff2db" strokeWidth="3" strokeLinecap="round" opacity="0.56" />
-        <path d="M325 170 C365 174, 368 242, 330 250 C322 252, 308 248, 302 242 C296 236, 292 224, 292 210 C292 192, 306 184, 325 170 Z" fill="url(#cupBody)" stroke="#c9b199" strokeWidth="6" />
-        <path d="M287 172 C292 178, 298 184, 308 190" fill="none" stroke="#fff5df" strokeWidth="3" opacity="0.45" strokeLinecap="round" />
-        <ellipse cx="260" cy="352" rx="142" ry="26" fill="#c7b295" opacity="0.28" />
-        <path d="M330 200 C365 178, 422 180, 430 226 C438 272, 390 304, 346 292" fill="none" stroke="#d3b08f" strokeWidth="12" opacity="0.22" />
-        <ellipse cx="260" cy="160" rx="80" ry="16" fill="url(#cupHighlight)" opacity="0.8" />
-        <path d="M210 118 C188 96, 204 66, 246 76" fill="none" stroke="#f6e7cf" strokeWidth="10" opacity="0.55" strokeLinecap="round" />
-        <path d="M250 108 C242 88, 286 80, 302 100" fill="none" stroke="#f6e7cf" strokeWidth="10" opacity="0.42" strokeLinecap="round" />
-        <path d="M232 92 C218 70, 252 58, 280 76" fill="none" stroke="#f6e7cf" strokeWidth="10" opacity="0.38" strokeLinecap="round" />
-        <path d="M272 122 C280 104, 308 98, 318 112" fill="none" stroke="#f9edde" strokeWidth="8" opacity="0.48" strokeLinecap="round" />
-        <path d="M288 94 C300 74, 324 70, 334 92" fill="none" stroke="#f9edde" strokeWidth="8" opacity="0.36" strokeLinecap="round" />
-        <path d="M356 178 C390 190, 392 228, 356 238" fill="none" stroke="#d2a873" strokeWidth="14" opacity="0.16" strokeLinecap="round" />
-        <path d="M336 184 C348 176, 358 170, 374 172" fill="none" stroke="#fff8e2" strokeWidth="6" opacity="0.4" strokeLinecap="round" />
-      </svg>
+    <div className="relative mx-auto aspect-square w-full max-w-[520px] overflow-hidden rounded-[2.5rem] shadow-[0_40px_90px_rgba(0,0,0,0.32)]" aria-hidden="true">
+      <div className="absolute inset-0 overflow-hidden rounded-[2.5rem]">
+        <Image
+          src="/images/hero/coffee-cup-hero.jpg"
+          alt="A white cup and saucer with steaming coffee on a warm wooden table"
+          fill
+          priority
+          sizes="(min-width: 1024px) 520px, (min-width: 768px) 420px, 100vw"
+          className={clsx("hero-photo object-cover", staticFrame && "hero-photo-static")}
+        />
+        <div className="hero-photo-scrim" />
+        <div className={clsx("hero-steam-overlay", staticFrame && "hero-steam-static")}>
+          <span className="hero-steam-line hero-steam-line-1" />
+          <span className="hero-steam-line hero-steam-line-2" />
+          <span className="hero-steam-line hero-steam-line-3" />
+        </div>
+      </div>
     </div>
   );
 }
