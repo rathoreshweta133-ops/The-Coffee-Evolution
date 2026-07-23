@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   title: `${siteConfig.siteName} | Specialty Coffeehouse`,
   description: siteConfig.description,
   icons: {
-    icon: siteConfig.logo,
-    shortcut: siteConfig.logo,
-    apple: siteConfig.appleTouchIcon,
+    icon: "/src/app/favicon.ico",
+    shortcut: "/src/app/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
   openGraph: {

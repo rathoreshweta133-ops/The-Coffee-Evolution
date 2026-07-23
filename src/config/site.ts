@@ -5,5 +5,5 @@ export const siteConfig = {
   url: "https://the-coffee-evolution-nizamabad.example",
   // Official outlet logo. Replace this file if a higher-resolution master is supplied.
   logo: "/images/logo/reallogo.jpeg",
-  appleTouchIcon: "/images/logo/reallogo.jpeg",
+  appleTouchIcon: "/apple-touch-icon.png",
 };
