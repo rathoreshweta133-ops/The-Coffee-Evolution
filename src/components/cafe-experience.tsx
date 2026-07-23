@@ -31,10 +31,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const navLinks = [
   ["Home", "hero"],
-  ["About Us", "about"],
-  ["Our Products/Menu", "menu"],
-  ["Gallery", "gallery"],
-  ["Contact Us", "visit"],
+  ["Menu", "menu"],
+  ["About", "about"],
+  ["Team", "team"],
+  ["Visit", "visit"],
 ] as const;
 
 function useTodayIndex() {
@@ -152,25 +152,6 @@ function Nav() {
         solid ? "bg-[rgba(21,16,13,.86)] shadow-2xl shadow-black/20 backdrop-blur-xl" : "bg-transparent"
       )}
     >
-      <div className="border-b border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(255,214,114,0.14),transparent_38%),rgba(5,4,4,0.92)] shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.22em] text-[var(--cream)]/90 sm:flex-row sm:items-center sm:justify-between md:px-8">
-          <a
-            href={`tel:${brand.phone}`}
-            className="inline-flex items-center gap-3 rounded-full border border-[var(--accent)]/30 bg-white/5 px-4 py-3 text-sm font-bold text-[var(--cream)] transition duration-200 hover:border-[var(--accent)] hover:bg-[rgba(255,255,255,0.12)] hover:text-[var(--accent)]"
-          >
-            <span className="rounded-full bg-[var(--accent)]/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-              Call
-            </span>
-            <Phone className="h-4 w-4 text-[var(--accent)]" /> {brand.phone}
-          </a>
-          <a
-            href={`mailto:${brand.email}`}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-[var(--cream)] transition duration-200 hover:border-[var(--accent)] hover:bg-[rgba(255,255,255,0.12)] hover:text-[var(--accent)]"
-          >
-            <Mail className="h-4 w-4" /> {brand.email}
-          </a>
-        </div>
-      </div>
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
         <a href="#hero" aria-label="Go to home">
           <Logo />
@@ -188,9 +169,6 @@ function Nav() {
               {label}
             </a>
           ))}
-          <a className="border border-[var(--accent)] px-4 py-3 text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)] transition hover:bg-[var(--accent)] hover:text-[var(--ink)]" href={brand.mapsUrl}>
-            Directions
-          </a>
         </div>
         <button
           type="button"
@@ -248,7 +226,7 @@ function Hero() {
     if (reduceMotion || alreadyPlayed) {
       gsap.set(".preloader", { opacity: 0, pointerEvents: "none" });
       gsap.set(".hero-copy > *", { opacity: 1, y: 0 });
-      gsap.set(".hero-photo, .hero-steam-line", { opacity: 1, y: 0, scale: 1 });
+      gsap.set(".hero-video, .hero-steam-line", { opacity: 1, y: 0, scale: 1 });
       return;
     }
     sessionStorage.setItem("pour-intro-played", "true");
@@ -256,7 +234,7 @@ function Hero() {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.from(".preloader-mark", { scale: 0.7, opacity: 0, duration: 0.5 })
         .to(".preloader", { opacity: 0, pointerEvents: "none", duration: 0.55, delay: 0.25 })
-        .from(".hero-photo", { opacity: 0, scale: 0.96, duration: 1 }, "-=.2")
+        .from(".hero-video", { opacity: 0, scale: 0.96, duration: 1 }, "-=.2")
         .from(".hero-steam-line", { y: 18, opacity: 0, stagger: 0.14, duration: 0.75 }, "-=.8")
         .from(".hero-copy > *", { y: 28, opacity: 0, stagger: 0.12, duration: 0.8 }, "-=.85");
     }, ref);
@@ -299,20 +277,18 @@ function HeroImage({ staticFrame }: { staticFrame: boolean }) {
     <div className="relative mx-auto aspect-square w-full max-w-[520px] overflow-hidden rounded-[2.5rem] shadow-[0_40px_90px_rgba(0,0,0,0.32)]" aria-hidden="true">
       <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-black/10">
         <video
-          className={clsx("hero-photo h-full w-full object-cover", staticFrame && "hero-photo-static")}
-          src="/images/hero/coffee-cup-hero.mp4"
+          className={clsx("hero-video h-full w-full object-cover", staticFrame && "hero-video-static")}
+          playsInline
           autoPlay
           muted
           loop
-          playsInline
           preload="auto"
+          poster="/videos/hero-coffee-poster.jpg"
           aria-hidden="true"
-        />
-        <div className={clsx("hero-steam-overlay", staticFrame && "hero-steam-static")}>
-          <span className="hero-steam-line hero-steam-line-1" />
-          <span className="hero-steam-line hero-steam-line-2" />
-          <span className="hero-steam-line hero-steam-line-3" />
-        </div>
+        >
+          <source src="/videos/hero-coffee.webm" type="video/webm" />
+          <source src="/videos/hero-coffee.mp4" type="video/mp4" />
+        </video>
       </div>
     </div>
   );

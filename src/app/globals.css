@@ -90,12 +90,12 @@ a {
   opacity: 0;
 }
 
-.hero-photo {
+.hero-video {
   transform-origin: center center;
   animation: hero-photo-kenburns 24s ease-in-out infinite alternate;
 }
 
-.hero-photo-static {
+.hero-video-static {
   animation: none !important;
 }
 
