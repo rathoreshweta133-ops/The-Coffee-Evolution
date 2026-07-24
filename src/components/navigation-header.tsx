@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
+import { siteConfig } from "@/config/site";
 
 const navItems = [
   { label: "Home", href: "#home", active: true },
@@ -31,49 +33,14 @@ export function NavigationHeader() {
 
       <a href="#" className="brand-section">
         <div className="logo-wrapper">
-          <svg className="logo-svg" viewBox="0 0 300 300" aria-hidden="true">
-            <circle cx="150" cy="150" r="140" fill="none" stroke="#8c6d3b" strokeWidth="8" />
-            <circle cx="150" cy="150" r="132" fill="none" stroke="#180d07" strokeWidth="4" />
-
-            <path id="textArcTop" d="M 40 150 A 110 110 0 1 1 260 150" fill="none" />
-            <path d="M 30 150 A 120 120 0 0 1 270 150 L 255 150 A 105 105 0 0 0 45 150 Z" fill="#ffffff" />
-            <text fontFamily="Cinzel, serif" fontWeight="bold" fontSize="20" fill="#8c6d3b">
-              <textPath xlinkHref="#textArcTop" startOffset="50%" textAnchor="middle">
-                THE COFFEE EVOLUTION
-              </textPath>
-            </text>
-
-            <path
-              d="M 150 90 C 110 90 100 130 100 160 C 100 190 120 220 150 220 C 142 195 142 170 150 150 C 158 130 158 110 150 90 Z"
-              fill="#8c6d3b"
-            />
-            <path
-              d="M 150 90 C 190 90 200 130 200 160 C 200 190 180 220 150 220 C 142 195 142 170 150 150 C 158 130 158 110 150 90 Z"
-              fill="#4a2c11"
-            />
-
-            <g stroke="#c5a059" strokeWidth="2" fill="none">
-              <path d="M 160 110 L 175 110 L 180 120" />
-              <circle cx="180" cy="120" r="3" fill="#c5a059" />
-              <path d="M 165 140 L 185 140" />
-              <circle cx="185" cy="140" r="3" fill="#c5a059" />
-              <path d="M 160 170 L 175 170 L 180 185" />
-              <circle cx="180" cy="185" r="3" fill="#c5a059" />
-            </g>
-
-            <g stroke="#8c6d3b" strokeWidth="3" fill="none">
-              <path d="M 80 160 A 70 70 0 0 0 220 160" />
-              <path d="M 90 170 A 60 60 0 0 0 210 170" />
-              <path d="M 100 180 A 50 50 0 0 0 200 180" />
-            </g>
-
-            <path id="textArcBottom" d="M 60 160 A 100 100 0 0 0 240 160" fill="none" />
-            <text fontFamily="Cinzel, serif" fontSize="13" fontWeight="bold" fill="#c5a059" letterSpacing="1">
-              <textPath xlinkHref="#textArcBottom" startOffset="50%" textAnchor="middle">
-                COFFEE = TRANSFORMATION
-              </textPath>
-            </text>
-          </svg>
+          <Image
+            src={siteConfig.logo}
+            alt={`${siteConfig.siteName} logo`}
+            width={70}
+            height={70}
+            className="logo-image"
+            priority
+          />
         </div>
 
         <div className="brand-titles">
@@ -199,9 +166,11 @@ export function NavigationHeader() {
           animation: floatLogo 3.5s ease-in-out infinite alternate;
         }
 
-        .logo-svg {
+        .logo-image {
           width: 65px;
           height: 65px;
+          border-radius: 9999px;
+          object-fit: cover;
           filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.35));
         }
 

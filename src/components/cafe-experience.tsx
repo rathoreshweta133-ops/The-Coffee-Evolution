@@ -23,6 +23,7 @@ import {
 import { galleryImages } from "@/data/gallery";
 import { menuCategories, menuItems, MenuCategory, MenuItem } from "@/data/menu";
 import { brand, hours, stats } from "@/data/site";
+import { siteConfig } from "@/config/site";
 import { Logo } from "./logo";
 import { NavigationHeader } from "./navigation-header";
 
@@ -675,44 +676,390 @@ function VisitAndReserve() {
 
 function Footer() {
   return (
-    <footer className="bg-[var(--ink)] px-5 pb-14 text-[var(--cream)]">
-      <div className="mx-auto grid max-w-7xl gap-10 border-b border-white/10 pb-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-        <div className="space-y-4">
-          <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[var(--accent-dark)] to-[var(--accent)] text-[var(--cream)] text-xl">☕</div>
-            <div>
-              <h4 className="text-xl font-semibold text-[var(--cream)]">The Coffee Evolution</h4>
-              <p className="text-sm leading-6 text-white/60">Pragathi Nagar, Nizamabad</p>
+    <footer className="footer-container">
+      <div className="top-shimmer-border" />
+      <div className="footer-glow" />
+
+      <svg className="curly-flourish flourish-top-left" viewBox="0 0 100 50" fill="none" aria-hidden="true">
+        <path
+          className="curly-path"
+          d="M5,45 C20,45 25,20 40,25 C55,30 50,5 70,10 C85,15 90,30 80,40 C70,50 55,40 60,25 C65,10 85,5 95,20"
+          stroke="#c5a059"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+
+      <svg className="curly-flourish flourish-top-right" viewBox="0 0 100 50" fill="none" aria-hidden="true">
+        <path
+          className="curly-path"
+          d="M5,45 C20,45 25,20 40,25 C55,30 50,5 70,10 C85,15 90,30 80,40 C70,50 55,40 60,25 C65,10 85,5 95,20"
+          stroke="#c5a059"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+
+      <div className="footer-content">
+        <div className="footer-col">
+          <div className="brand-header-flex">
+            <div className="footer-logo-wrapper">
+              <Image
+                src={siteConfig.logo}
+                alt={`${siteConfig.siteName} logo`}
+                width={70}
+                height={70}
+                className="footer-logo-image"
+                priority
+              />
+            </div>
+            <div className="brand-title-group">
+              <h2>The Coffee Evolution</h2>
+              <div className="brand-subtitle-text">Coffee = Transformation</div>
             </div>
           </div>
-          <p className="max-w-sm text-sm leading-7 text-white/60">From the first sip to the last bite, this cafe serves a relaxed local spot for friends, dates, and evening plans.</p>
+          <p>Crafting rich aromas, artisanal brews, and unforgettable moments. Experience coffee perfected with passion and modern innovation.</p>
+          <div className="hours-badge">🕒 Open Daily: 12:30 PM – 10:30 PM</div>
         </div>
-        <div className="grid gap-3 text-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--accent-dark)]">Explore</p>
-          <a className="transition hover:text-[var(--accent)]" href="#hero">Home</a>
-          <a className="transition hover:text-[var(--accent)]" href="#menu">Menu</a>
-          <a className="transition hover:text-[var(--accent)]" href="#about">About</a>
-          <a className="transition hover:text-[var(--accent)]" href="#gallery">Gallery</a>
+
+        <div className="footer-col">
+          <h3>Our Specialty</h3>
+          <p>• Specialty Espresso & Pour-overs</p>
+          <p>• Handcrafted Cold Brews & Shakes</p>
+          <p>• Gourmet Artisan Desserts</p>
+          <p>• Cozy Vintage Ambience</p>
         </div>
-        <div className="grid gap-3 text-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--accent-dark)]">Contact</p>
-          <p className="text-sm text-white/70">{brand.address}</p>
-          <a className="transition hover:text-[var(--accent)]" href={`tel:${brand.phone}`}>{brand.phone}</a>
-          <a className="transition hover:text-[var(--accent)]" href={`mailto:${brand.email}`}>{brand.email}</a>
-        </div>
-        <div className="grid gap-3 text-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[var(--accent-dark)]">Hours</p>
-          <p className="text-sm text-white/70">Open Daily</p>
-          <p className="text-sm">12:30 PM — 10:30 PM</p>
-          <div className="flex items-center gap-3 pt-2 text-[var(--cream)]">
-            <a href={brand.instagram} aria-label="Instagram" className="transition hover:text-[var(--accent)]">IG</a>
-            <a href={brand.facebook} aria-label="Facebook" className="transition hover:text-[var(--accent)]">FB</a>
-          </div>
+
+        <div className="footer-col">
+          <h3>Reach Us</h3>
+          <ul className="contact-list">
+            <li className="contact-item">
+              <div className="contact-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              </div>
+              <a href="tel:+917989845498">+91 79898 45498</a>
+            </li>
+            <li className="contact-item">
+              <div className="contact-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22 6 12 13 2 6" />
+                </svg>
+              </div>
+              <a href="mailto:coffeevolutionnzbd@gmail.com">coffeevolutionnzbd@gmail.com</a>
+            </li>
+            <li className="contact-item">
+              <div className="contact-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <a href="https://maps.google.com/?q=18.668193,78.109743" target="_blank" rel="noreferrer">
+                Nizamabad (18.668193, 78.109743)
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div className="mx-auto mt-8 max-w-7xl text-sm text-white/50 md:flex md:items-center md:justify-between">
-        <span>© 2026 The Coffee Evolution Nizamabad. All rights reserved.</span>
+
+      <div className="footer-bottom">
+        <div>© 2026 THE COFFEE EVOLUTION. ALL RIGHTS RESERVED.</div>
+        <div className="social-links">
+          <a href="#" className="social-icon" title="Instagram">IG</a>
+          <a href="#" className="social-icon" title="Facebook">FB</a>
+          <a href="https://maps.google.com/?q=18.668193,78.109743" target="_blank" rel="noreferrer" className="social-icon" title="Location Map">MAP</a>
+        </div>
       </div>
+
+      <style jsx>{`
+        .footer-container {
+          position: relative;
+          background: linear-gradient(180deg, #140b06 0%, #080402 100%);
+          border-top: 2px solid #8c6d3b;
+          padding: 50px 20px 20px 20px;
+          overflow: hidden;
+          box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.9);
+          color: #f1e4c3;
+        }
+
+        .top-shimmer-border {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 3px;
+          background: linear-gradient(90deg, transparent, #c5a059, #f1e4c3, #c5a059, transparent);
+          background-size: 200% 100%;
+          animation: shimmerLine 3s linear infinite;
+        }
+
+        @keyframes shimmerLine {
+          0% {
+            background-position: 100% 0;
+          }
+          100% {
+            background-position: -100% 0;
+          }
+        }
+
+        .footer-glow {
+          position: absolute;
+          bottom: -50px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 500px;
+          height: 250px;
+          background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%);
+          pointer-events: none;
+        }
+
+        .curly-flourish {
+          position: absolute;
+          width: 140px;
+          height: 70px;
+          opacity: 0.6;
+          pointer-events: none;
+        }
+
+        .flourish-top-left {
+          top: 15px;
+          left: 15px;
+        }
+
+        .flourish-top-right {
+          top: 15px;
+          right: 15px;
+          transform: scaleX(-1);
+        }
+
+        .curly-path {
+          stroke-dasharray: 400;
+          stroke-dashoffset: 400;
+          animation: drawCurly 4s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+        }
+
+        @keyframes drawCurly {
+          0% {
+            stroke-dashoffset: 400;
+            opacity: 0.2;
+          }
+          100% {
+            stroke-dashoffset: 0;
+            opacity: 0.9;
+          }
+        }
+
+        .footer-content {
+          max-width: 1100px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1.4fr 0.8fr 1fr;
+          gap: 40px;
+          position: relative;
+          z-index: 5;
+        }
+
+        .footer-col h3 {
+          font-size: 16px;
+          color: #c5a059;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin-bottom: 18px;
+          position: relative;
+          padding-bottom: 8px;
+        }
+
+        .footer-col h3::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 40px;
+          height: 2px;
+          background: #8c6d3b;
+        }
+
+        .footer-col p {
+          font-size: 12px;
+          line-height: 1.8;
+          color: #d1c2a5;
+          margin-bottom: 12px;
+          font-family: Georgia, serif;
+        }
+
+        .brand-header-flex {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 15px;
+        }
+
+        .footer-logo-wrapper {
+          width: 70px;
+          height: 70px;
+          flex-shrink: 0;
+          animation: floatLogo 3.5s ease-in-out infinite alternate;
+        }
+
+        .footer-logo-image {
+          width: 100%;
+          height: 100%;
+          border-radius: 9999px;
+          object-fit: cover;
+          filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.3));
+        }
+
+        @keyframes floatLogo {
+          0% {
+            transform: translateY(0);
+          }
+          100% {
+            transform: translateY(-4px);
+          }
+        }
+
+        .brand-title-group h2 {
+          font-size: 16px;
+          color: #f1e4c3;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin: 0;
+        }
+
+        .brand-subtitle-text {
+          font-size: 10px;
+          color: #c5a059;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          margin-top: 4px;
+          font-weight: 600;
+        }
+
+        .brand-motto {
+          font-style: italic;
+          color: #c5a059 !important;
+          font-size: 12px !important;
+          font-weight: 600;
+        }
+
+        .contact-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .contact-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 14px;
+          font-size: 12px;
+          color: #d1c2a5;
+          font-family: Georgia, serif;
+          transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+          transform: translateX(5px);
+          color: #f1e4c3;
+        }
+
+        .contact-icon {
+          width: 32px;
+          height: 32px;
+          background: rgba(197, 160, 89, 0.1);
+          border: 1px solid #8c6d3b;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-shrink: 0;
+          color: #c5a059;
+          box-shadow: 0 0 8px rgba(197, 160, 89, 0.1);
+        }
+
+        .contact-item a {
+          color: inherit;
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+          color: #c5a059;
+        }
+
+        .hours-badge {
+          display: inline-block;
+          background: rgba(140, 109, 59, 0.2);
+          border: 1px dashed #8c6d3b;
+          padding: 6px 12px;
+          border-radius: 4px;
+          font-size: 11px;
+          color: #f1e4c3;
+          margin-top: 5px;
+        }
+
+        .footer-bottom {
+          max-width: 1100px;
+          margin: 30px auto 0 auto;
+          padding-top: 20px;
+          border-top: 1px solid rgba(140, 109, 59, 0.3);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 10px;
+          color: #8c6d3b;
+          letter-spacing: 1px;
+          position: relative;
+          z-index: 5;
+        }
+
+        .social-links {
+          display: flex;
+          gap: 15px;
+        }
+
+        .social-icon {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          border: 1px solid #8c6d3b;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #c5a059;
+          text-decoration: none;
+          font-size: 10px;
+          transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+          background: #c5a059;
+          color: #0a0806;
+          box-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+          transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+          .footer-content {
+            grid-template-columns: 1fr;
+            gap: 25px;
+          }
+
+          .curly-flourish {
+            display: none;
+          }
+
+          .footer-bottom {
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+          }
+        }
+      `}</style>
     </footer>
   );
 }
