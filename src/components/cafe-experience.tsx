@@ -4,7 +4,7 @@ import clsx from "clsx";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -15,17 +15,16 @@ import {
   ChevronRight,
   Mail,
   MapPin,
-  Menu as MenuIcon,
   MessageCircle,
   MousePointer2,
   Phone,
   Search,
-  X,
 } from "lucide-react";
 import { galleryImages } from "@/data/gallery";
 import { menuCategories, menuItems, MenuCategory, MenuItem } from "@/data/menu";
 import { brand, hours, stats } from "@/data/site";
 import { Logo } from "./logo";
+import { NavigationHeader } from "./navigation-header";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -116,104 +115,6 @@ function CustomCursor() {
   return <div ref={ref} className="custom-cursor hidden lg:block" aria-hidden="true" />;
 }
 
-function Nav() {
-  const [open, setOpen] = useState(false);
-  const [solid, setSolid] = useState(false);
-  const [active, setActive] = useState("hero");
-
-  useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 48);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const sections = navLinks.map(([, id]) => id);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: "-35% 0px -55% 0px" }
-    );
-
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <header
-      className={clsx(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        solid ? "bg-[rgba(21,16,13,.86)] shadow-2xl shadow-black/20 backdrop-blur-xl" : "bg-transparent"
-      )}
-    >
-      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
-        <a href="#hero" aria-label="Go to home">
-          <Logo />
-        </a>
-        <div className="hidden items-center gap-7 lg:flex">
-          {navLinks.map(([label, id]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className={clsx(
-                "text-xs font-semibold uppercase tracking-[0.22em] text-[var(--cream)]/72 transition hover:text-[var(--accent)]",
-                active === id && "text-[var(--accent)]"
-              )}
-            >
-              {label}
-            </a>
-          ))}
-        </div>
-        <button
-          type="button"
-          className="inline-flex h-11 w-11 items-center justify-center border border-white/20 text-white lg:hidden"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-        >
-          <MenuIcon className="h-5 w-5" />
-        </button>
-      </nav>
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[var(--ink)] px-6 py-6 lg:hidden"
-          >
-            <div className="flex items-center justify-between">
-              <Logo />
-              <button className="h-11 w-11 border border-white/20 text-white" onClick={() => setOpen(false)} aria-label="Close menu">
-                <X className="mx-auto h-5 w-5" />
-              </button>
-            </div>
-            <div className="mt-16 grid gap-5">
-              {navLinks.map(([label, id], index) => (
-                <motion.a
-                  key={id}
-                  href={`#${id}`}
-                  onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, x: -18 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.06 }}
-                  className="border-b border-white/10 pb-5 font-display text-4xl text-[var(--cream)]"
-                >
-                  {label}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </header>
-  );
-}
 
 function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -870,7 +771,7 @@ export function CafeExperience() {
     <>
       <CustomCursor />
       <div className="fixed left-0 top-0 z-[70] h-1 w-full origin-left scale-x-[var(--scroll-progress,0)] bg-[var(--accent)]" aria-hidden="true" />
-      <Nav />
+      <NavigationHeader />
       <main>
         <Hero />
         <MenuBook />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Cinzel, Cormorant_Garamond, Inter } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -12,6 +12,12 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-heading",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
+});
+
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -46,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${cormorant.variable} h-full scroll-smooth antialiased`}
+      className={`${inter.variable} ${cormorant.variable} ${cinzel.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {/* TODO: add Plausible or Google Analytics script here with the real production ID. */}
