@@ -7,6 +7,7 @@ import Lenis from "lenis";
 import { useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   CalendarDays,
@@ -119,98 +120,77 @@ function CustomCursor() {
 
 function Hero() {
   const ref = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  const skipIntro = Boolean(reduceMotion);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const alreadyPlayed = sessionStorage.getItem("pour-intro-played") === "true";
-    if (reduceMotion || alreadyPlayed) {
-      gsap.set(".preloader", { opacity: 0, pointerEvents: "none" });
-      gsap.set(".hero-copy > *", { opacity: 1, y: 0 });
-      gsap.set(".hero-video, .hero-steam-line", { opacity: 1, y: 0, scale: 1 });
-      return;
-    }
-    sessionStorage.setItem("pour-intro-played", "true");
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from(".preloader-mark", { scale: 0.7, opacity: 0, duration: 0.5 })
-        .to(".preloader", { opacity: 0, pointerEvents: "none", duration: 0.55, delay: 0.25 })
-        .from(".hero-video", { opacity: 0, scale: 0.96, duration: 1 }, "-=.2")
-        .from(".hero-steam-line", { y: 18, opacity: 0, stagger: 0.14, duration: 0.75 }, "-=.8")
-        .from(".hero-copy > *", { y: 28, opacity: 0, stagger: 0.12, duration: 0.8 }, "-=.85");
-    }, ref);
-    return () => ctx.revert();
-  }, [reduceMotion]);
 
   return (
-    <section id="hero" ref={ref} className="relative grid min-h-screen place-items-center overflow-hidden bg-[var(--ink)] px-5 py-28 text-[var(--cream)]">
-      <div className="preloader absolute inset-0 z-20 grid place-items-center bg-[var(--ink)]">
-        <div className="preloader-mark h-16 w-16 border border-[var(--accent)] p-3">
-          <Logo compact />
+    <section id="hero" ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[radial-gradient(ellipse_at_50%_30%,#3a2214_0%,#1a0e08_60%,#0a0503_100%)] px-5 pt-36 text-center text-[var(--cream)]">
+      <div className="animate-[fadeUp_0.8s_ease_0.2s_forwards] text-xs font-semibold tracking-[0.2em] text-[#c5a059] uppercase opacity-0">Pragathi Nagar · Nizamabad</div>
+      <h1 className="animate-[fadeUp_0.9s_ease_0.4s_forwards] font-display text-4xl leading-tight tracking-[2px] text-balance opacity-0 uppercase md:text-6xl lg:text-[3.6rem] [text-shadow:0_2px_10px_rgba(0,0,0,0.9),0_0_15px_rgba(197,160,89,0.3)]">Coffee = Transformation</h1>
+      <p className="mx-auto mt-4 max-w-[480px] animate-[fadeUp_0.9s_ease_0.6s_forwards] font-serif text-[0.98rem] leading-relaxed text-[#d1c2a5] opacity-0">Rich aromas, artisanal brews, and vegetarian cafe plates — an evening room built for every sip, plate, and pause.</p>
+
+      <div className="relative mt-5 flex h-[400px] w-full max-w-[520px] flex-col items-center justify-end pb-10">
+        <div className="pointer-events-none absolute bottom-40 z-10 flex w-[130px] justify-center">
+          <div className="absolute bottom-0 left-[30%] h-[145px] w-2.5 animate-[continuousSteam_4.2s_infinite_linear] rounded-full opacity-0 blur-[7px] bg-linear-to-t from-transparent via-white/35 via-white/25 via-white/10 to-transparent" />
+          <div className="absolute bottom-0 left-[45%] h-[145px] w-2.5 animate-[continuousSteam_3.6s_infinite_linear_1.1s] rounded-full opacity-0 blur-[7px] bg-linear-to-t from-transparent via-white/35 via-white/25 via-white/10 to-transparent" />
+          <div className="absolute bottom-0 left-[55%] h-[145px] w-2.5 animate-[continuousSteam_4.8s_infinite_linear_2.2s] rounded-full opacity-0 blur-[7px] bg-linear-to-t from-transparent via-white/35 via-white/25 via-white/10 to-transparent" />
+          <div className="absolute bottom-0 left-[40%] h-[145px] w-2.5 animate-[continuousSteam_3.9s_infinite_linear_0.6s] rounded-full opacity-0 blur-[7px] bg-linear-to-t from-transparent via-white/35 via-white/25 via-white/10 to-transparent" />
+          <div className="absolute bottom-0 left-[60%] h-[145px] w-2.5 animate-[continuousSteam_4.5s_infinite_linear_1.8s] rounded-full opacity-0 blur-[7px] bg-linear-to-t from-transparent via-white/35 via-white/25 via-white/10 to-transparent" />
         </div>
-      </div>
-      <div className="absolute inset-0 opacity-70">
-        <Image src="/images/gallery/wall-logo-night.jpeg" alt={`${brand.name} illuminated outlet wall`} fill priority className="object-cover" />
-      </div>
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(21,16,13,.92),rgba(21,16,13,.64),rgba(21,16,13,.38))]" />
-      <div className="absolute inset-0 texture opacity-35" />
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 pt-24 lg:grid-cols-[1fr_.9fr]">
-        <div className={clsx("hero-copy max-w-3xl", skipIntro && "hero-copy-ready")}>
-          <p className="mb-5 text-xs font-bold uppercase tracking-[0.32em] text-[var(--accent)]">Pragathi Nagar - Open daily - 12:30 PM to 10:30 PM</p>
-          <h1 className="font-display text-5xl leading-[0.96] text-balance md:text-7xl lg:text-8xl">{brand.name}</h1>
-          <p className="mt-7 max-w-xl text-lg leading-8 text-[var(--cream)]/78 md:text-xl">{brand.tagline}</p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <MagneticButton href="#menu">View Menu</MagneticButton>
-            <MagneticButton href="#visit" variant="secondary">Plan Your Visit</MagneticButton>
+        
+        <div className="relative z-3 h-[110px] w-[148px] rounded-t-lg rounded-b-[66px] shadow-[0_14px_20px_rgba(0,0,0,0.7),inset_5px_0_12px_rgba(255,255,255,0.15),inset_-12px_-10px_20px_rgba(0,0,0,0.6)] bg-linear-135 from-[#8a4e35] via-[#5e311f] to-[#3b1d10] after:absolute after:top-[30%] after:left-[8%] after:h-0.5 after:w-[84%] after:rounded-full after:blur-[1px] after:bg-white/10">
+          <div className="absolute top-4 -right-[25px] z-2 h-[55px] w-10 rounded-r-[40px] border-[11px] border-l-0 border-[#633421] shadow-[4px_6px_10px_rgba(0,0,0,0.5),inset_-3px_2px_5px_rgba(255,255,255,0.2)]" />
+          <div className="absolute -top-[9px] left-0 flex h-[38px] w-[148px] items-center justify-center overflow-hidden rounded-full border-2 border-[#a36145] shadow-[inset_0_2px_6px_rgba(255,255,255,0.3),0_3px_6px_rgba(0,0,0,0.4)] bg-linear-to-r from-[#915339] via-[#6a3723] to-[#431f11]">
+            <div className="relative flex h-[31px] w-[138px] items-center justify-center rounded-full shadow-[inset_0_2px_5px_rgba(0,0,0,0.8)] bg-[radial-gradient(ellipse_at_40%_40%,#a26132_0%,#683617_50%,#3d1c0a_85%,#240d04_100%)]">
+              <div className="relative flex h-[23px] w-[70px] scale-y-50 flex-col items-center filter drop-shadow-[0_1px_2px_rgba(40,15,5,0.4)]">
+                <div className="absolute top-0.5 h-4 w-[17px] -rotate-45 rounded-t-full bg-[#f7e7ce] before:absolute before:-top-2 before:left-0 before:h-[17px] before:w-[17px] before:rounded-full before:bg-[#f7e7ce] after:absolute after:top-0 after:left-2 after:h-[17px] after:w-[17px] after:rounded-full after:bg-[#f7e7ce]" />
+                <div className="absolute top-[5px] h-4 w-[35px] rounded-b-full border-2 border-t-0 border-[#f7e7ce]" />
+                <div className="absolute top-[9px] h-[19px] w-[50px] rounded-b-full border-2 border-t-0 border-[#f7e7ce]/85" />
+                <div className="absolute top-[13px] h-5 w-[62px] rounded-b-full border-2 border-t-0 border-[#f7e7ce]/60" />
+                <div className="absolute -top-0.5 z-5 h-[29px] w-0.5 rounded-full bg-linear-to-b from-[#f7e7ce] to-[#f7e7ce]/30" />
+              </div>
+            </div>
           </div>
         </div>
-        <HeroImage staticFrame={skipIntro} />
+        <div className="relative z-2 flex h-[70px] w-[250px] items-center justify-center rounded-full shadow-[0_15px_35px_rgba(0,0,0,0.9),inset_0_4px_10px_rgba(255,255,255,0.25),inset_0_-8px_12px_rgba(0,0,0,0.7)] bg-linear-to-b from-[#72402b] via-[#432113] to-[#29120a]">
+          <div className="relative top-[-2px] h-[42px] w-[165px] rounded-full shadow-[inset_0_3px_8px_rgba(0,0,0,0.8),inset_0_-2px_5px_rgba(255,255,255,0.15)] bg-linear-to-b from-[#2b1309] to-[#542b1a]" />
+        </div>
+        <div className="absolute bottom-[30px] z-1 h-7 w-[300px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.85)_0%,rgba(0,0,0,0)_70%)]" />
       </div>
-      <a href="#menu" className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-white/60">
-        <MousePointer2 className="h-4 w-4 animate-bounce" /> Scroll
-      </a>
+
+      <div className="mt-7 flex animate-[fadeUp_0.9s_ease_0.8s_forwards] flex-wrap justify-center gap-4 opacity-0">
+        <a href="#menu" className="inline-block rounded-3xl px-7 py-3 font-display text-[0.78rem] font-bold tracking-[1.5px] text-[#1a100a] shadow-[0_6px_18px_rgba(0,0,0,0.6)] transition-all duration-300 uppercase bg-linear-135 from-[#c5a059] to-[#8c6d3b] hover:-translate-y-1 hover:bg-linear-135 hover:from-[#e0c388] hover:to-[#a88448]">View Menu</a>
+        <a href="#contact" className="inline-block rounded-3xl border border-[#8c6d3b] px-7 py-3 font-display text-[0.78rem] font-bold tracking-[1.5px] text-[#f1e4c3] transition-all duration-300 uppercase hover:-translate-y-1 hover:bg-[#c5a059]/10">Plan Your Visit</a>
+      </div>
+
+      <style jsx>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes continuousSteam {
+          0% { transform: translateY(8px) translateX(0) scaleX(1) scaleY(0.6); opacity: 0; }
+          20% { opacity: 0.65; }
+          50% { transform: translateY(-70px) translateX(-12px) scaleX(2) scaleY(1.2); opacity: 0.4; }
+          80% { transform: translateY(-130px) translateX(16px) scaleX(3) scaleY(1.5); opacity: 0.15; }
+          100% { transform: translateY(-185px) translateX(-20px) scaleX(4) scaleY(1.8); opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 }
 
-function HeroImage({ staticFrame }: { staticFrame: boolean }) {
-  return (
-    <div className="relative mx-auto aspect-square w-full max-w-[520px] overflow-hidden rounded-[2.5rem] shadow-[0_40px_90px_rgba(0,0,0,0.32)]" aria-hidden="true">
-      <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-black/10">
-        <video
-          className={clsx("hero-video h-full w-full object-cover", staticFrame && "hero-video-static")}
-          playsInline
-          autoPlay
-          muted
-          loop
-          preload="auto"
-          poster="/videos/hero-coffee-poster.jpg"
-          aria-hidden="true"
-        >
-          <source src="/videos/hero-coffee.webm" type="video/webm" />
-          <source src="/videos/hero-coffee.mp4" type="video/mp4" />
-        </video>
-      </div>
-    </div>
-  );
-}
-
 function MenuBook() {
-  const [category, setCategory] = useState<MenuCategory>("Coffee");
+  const [category, setCategory] = useState<MenuCategory>("Hot Coffee");
   const [open, setOpen] = useState(false);
-  const [veganOnly, setVeganOnly] = useState(false);
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [direction, setDirection] = useState(1);
 
   const items = useMemo(() => {
     return menuItems[category].filter((item) => {
-      const matchesQuery = `${item.name} ${item.description}`.toLowerCase().includes(query.toLowerCase());
-      const matchesVegan = !veganOnly || item.tags?.includes("VG");
-      return matchesQuery && matchesVegan;
+      const matchesQuery = item.name.toLowerCase().includes(query.toLowerCase());
+      return matchesQuery;
     });
-  }, [category, query, veganOnly]);
+  }, [category, query]);
 
   const pageSize = 5;
   const pages = useMemo(() => {
@@ -298,10 +278,9 @@ function MenuBook() {
                 ))}
               </div>
               <div className="mt-8 rounded-[2rem] border border-[var(--line-dark)] bg-white/90 p-5 shadow-[inset_0_0_0_1px_rgba(21,16,13,0.06)] backdrop-blur-sm">
-                <label className="flex items-center gap-3 text-sm text-[var(--muted)]">
-                  <input type="checkbox" checked={veganOnly} onChange={(event) => setVeganOnly(event.target.checked)} className="h-5 w-5 accent-[var(--accent)]" />
-                  Vegan only
-                </label>
+                <div className="flex items-center gap-3 text-sm text-[var(--muted)]">
+                  <span className="font-semibold tracking-widest uppercase">Select Category</span>
+                </div>
                 <div className="mt-4 flex items-center gap-3 border-t border-[var(--line-dark)] pt-4 text-sm text-[var(--muted)]">
                   <Search className="h-4 w-4 text-[var(--muted)]" />
                   <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search the diary" className="w-full bg-transparent text-sm outline-none placeholder:text-[var(--muted)]" />
@@ -310,7 +289,7 @@ function MenuBook() {
             </div>
             <AnimatePresence mode="wait">
               <motion.div
-                key={`${category}-${currentPage}-${veganOnly}-${query}`}
+                key={`${category}-${currentPage}-${query}`}
                 custom={direction}
                 variants={pageVariants}
                 initial="enter"
@@ -334,31 +313,20 @@ function MenuBook() {
                     </div>
                     <span className="text-xs uppercase tracking-[0.28em] text-[var(--muted)]">Page {currentPage} of {pageCount}</span>
                   </div>
-                  <div className="mt-6 grid gap-4">
+                  <div className="mt-6 grid gap-2">
                     {pageItems.length ? (
                       pageItems.map((item) => (
-                        <article key={item.name} className="menu-item rounded-[1.75rem] border border-[var(--line-dark)] bg-[rgba(255,255,255,0.92)] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-                          <div className="flex items-start gap-4">
-                            {item.image ? (
-                              <Image src={item.image} alt={`${item.name} at ${brand.name}`} width={104} height={104} className="h-24 w-24 shrink-0 rounded-3xl object-cover shadow-[0_10px_30px_rgba(0,0,0,0.16)]" />
-                            ) : (
-                              <div className="grid h-24 w-24 shrink-0 place-items-center rounded-3xl bg-[var(--ink)] text-2xl font-bold uppercase tracking-[0.16em] text-[var(--accent)]" aria-hidden="true">
-                                {item.name.slice(0, 1)}
-                              </div>
-                            )}
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-start justify-between gap-4">
-                                <h4 className="font-display text-2xl text-[var(--ink)]">{item.name}</h4>
-                                <span className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--accent-dark)]">{item.price}</span>
-                              </div>
-                              <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.description}</p>
-                              <div className="mt-4 flex flex-wrap gap-2">
-                                {item.tags?.map((tag) => (
-                                  <span key={tag} className="tag">{tag}</span>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
+                        <article key={item.name} className={clsx(
+                          "flex justify-between items-baseline font-semibold text-[13px] uppercase",
+                          item.isSubcategory ? "mt-4 mb-2 border-b border-dashed border-[#baa274] pb-1 text-[#2b1a0d] tracking-widest text-[14px]" : "text-[#3b281a]"
+                        )}>
+                          <span>{item.name}</span>
+                          {!item.isSubcategory && (
+                            <>
+                              <div className="flex-grow mx-2 border-b border-dotted border-[#baa274] opacity-80" />
+                              <span className="text-[#2b1a0d] font-bold">{item.price}</span>
+                            </>
+                          )}
                         </article>
                       ))
                     ) : (
@@ -481,18 +449,68 @@ function About() {
 
 function Team() {
   const members = [
-    { initials: "RK", name: "Ravi Kumar", role: "Store Manager" },
-    { initials: "AS", name: "Anjali S.", role: "Head Barista" },
-    { initials: "MP", name: "Mahesh P.", role: "Chef" },
-    { initials: "SN", name: "Sneha N.", role: "Cafe Associate" },
+    {
+      name: "Hariom",
+      role: "Chef",
+      desc: "Crafting savory pairings and artisanal kitchen creations to complement every brew.",
+      icon: (
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6z" />
+          <line x1="6" y1="17" x2="18" y2="17" />
+        </svg>
+      ),
+    },
+    {
+      name: "Ashok",
+      role: "Head Chef",
+      desc: "Leading the culinary team with innovation, signature recipes, and high standards.",
+      icon: (
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M12 2a5 5 0 0 0-5 5c0 2 1 3.5 2 4.5V14a3 3 0 0 0 6 0v-2.5c1-1 2-2.5 2-4.5a5 5 0 0 0-5-5z" />
+          <path d="M8.5 18h7" />
+          <path d="M10 21h4" />
+        </svg>
+      ),
+    },
+    {
+      name: "Abhishek",
+      role: "Head Barista",
+      desc: "Mastering specialty extractions, latte art, and optimal flavor notes in every cup.",
+      icon: (
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M17 8h1a4 4 0 0 1 0 8h-1" />
+          <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z" />
+          <line x1="6" y1="2" x2="6" y2="4" />
+          <line x1="10" y1="2" x2="10" y2="4" />
+          <line x1="14" y1="2" x2="14" y2="4" />
+        </svg>
+      ),
+    },
+    {
+      name: "TCE Specialists",
+      role: "Bar Crew",
+      desc: "Warm hospitality, fast service, and an unforgettable cafe experience.",
+      icon: (
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+      ),
+    },
   ];
 
   return (
-    <section id="team" className="bg-[var(--paper)] px-5 py-24 text-[var(--ink)] reveal-text md:py-32">
+    <section id="team" className="relative bg-[var(--background)] px-5 py-24 text-[var(--cream)] md:py-32">
+      <div className="absolute top-[30%] left-1/2 h-[300px] w-[600px] -translate-x-1/2 -translate-y-1/2 blur-[30px] bg-[radial-gradient(circle,rgba(197,160,89,0.1)_0%,transparent_70%)] pointer-events-none" />
       <div className="mx-auto max-w-7xl">
-        <SectionHeading kicker="Meet the team" title="The people behind the counter" tone="dark" />
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)]">Every cup and plate here passes through hands that care about getting it right.</p>
-        <div className="team-grid mt-12 grid gap-6 lg:grid-cols-4">
+        <div className="section-header reveal text-center mb-12">
+          <h2 className="font-display text-4xl font-bold tracking-[4px] text-[#f1e4c3] uppercase [text-shadow:0_2px_10px_rgba(0,0,0,0.9),0_0_15px_rgba(197,160,89,0.3)]">Meet Our Team</h2>
+          <p className="mt-2 text-xs font-semibold tracking-[3px] text-[#c5a059] uppercase">The Artisans Behind The Transformation</p>
+          <div className="mx-auto mt-4 h-0.5 w-[140px] bg-linear-to-r from-transparent via-[#c5a059] to-transparent" />
+        </div>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {members.map((member, index) => (
             <motion.article
               key={member.name}
@@ -500,13 +518,20 @@ function Team() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ delay: index * 0.08 }}
-              className="team-card rounded-[2rem] border border-[rgba(21,16,13,0.08)] bg-white p-6 text-center shadow-[0_20px_50px_rgba(21,16,13,0.08)]"
+              className="group relative flex flex-col items-center overflow-hidden rounded-lg border border-[#8c6d3b] bg-[#180d07]/80 p-6 text-center transition-all duration-400 hover:-translate-y-2 hover:border-[#c5a059] hover:bg-[#23130a]/90 hover:shadow-[0_12px_30px_rgba(0,0,0,0.9),0_0_15px_rgba(197,160,89,0.25)] before:absolute before:top-0 before:-left-full before:h-0.5 before:w-full before:bg-linear-to-r before:from-transparent before:via-[#f1e4c3] before:to-transparent before:transition-all before:duration-600 hover:before:left-full"
             >
-              <div className="avatar mb-6 inline-flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-[var(--accent-dark)] to-[var(--accent)] text-3xl font-bold text-[var(--cream)] shadow-[0_16px_42px_rgba(184,112,47,0.18)]">
-                {member.initials}
+              <div className="relative mb-4 flex h-[100px] w-[100px] items-center justify-center rounded-full border-2 border-[#c5a059] p-1 shadow-[0_0_15px_rgba(197,160,89,0.2)] transition-transform duration-400 group-hover:scale-105 group-hover:border-[#f1e4c3] group-hover:shadow-[0_0_20px_rgba(197,160,89,0.4)]">
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-[#2b170c] text-[#c5a059]">
+                  {member.icon}
+                </div>
               </div>
-              <h4 className="font-display text-xl text-[var(--ink)]">{member.name}</h4>
-              <p className="mt-2 text-sm text-[var(--muted)]">{member.role}</p>
+              <h4 className="font-display text-base font-bold tracking-[2px] text-[#f1e4c3] uppercase mb-1.5">{member.name}</h4>
+              <span className="mb-3 inline-block rounded-3xl border border-[#8c6d3b]/50 bg-[#c5a059]/12 px-3 py-1 text-[10px] font-semibold tracking-[2px] text-[#c5a059] uppercase">
+                {member.role}
+              </span>
+              <p className="font-serif text-[11.5px] leading-relaxed text-[#d1c2a5]">
+                {member.desc}
+              </p>
             </motion.article>
           ))}
         </div>

@@ -1,357 +1,121 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useState } from "react";
-import { siteConfig } from "@/config/site";
+import Link from "next/link";
+import clsx from "clsx";
 
-const navItems = [
-  { label: "Home", href: "#home", active: true },
-  { label: "Menu", href: "#menu" },
-  { label: "About Us", href: "#about" },
-  { label: "Our Team", href: "#team" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact Us", href: "#contact" },
+const navLinks = [
+  { name: "Home", href: "#hero" },
+  { name: "Menu", href: "#menu" },
+  { name: "About Us", href: "#about" },
+  { name: "Our Team", href: "#team" },
+  { name: "Gallery", href: "#gallery" },
+  { name: "Contact Us", href: "#contact" },
 ];
 
 export function NavigationHeader() {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("Home");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navLinks.map(link => link.href.substring(1));
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            const link = navLinks.find(l => l.href === `#${section}`);
+            if (link) setActiveLink(link.name);
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="header-container">
-      <div className="header-glow" />
-
-      <svg className="curly-flourish flourish-left" viewBox="0 0 100 50" fill="none" aria-hidden="true">
-        <path
-          className="curly-path"
-          d="M5,45 C20,45 25,20 40,25 C55,30 50,5 70,10 C85,15 90,30 80,40 C70,50 55,40 60,25 C65,10 85,5 95,20"
-          stroke="#c5a059"
-          strokeWidth="2"
+    <header className="fixed top-0 right-0 left-0 z-1000 flex items-center justify-between border-b-2 border-[#8c6d3b] bg-linear-to-b from-[#180d07] to-[#0d0805] px-10 py-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.85)] overflow-hidden">
+      <div className="pointer-events-none absolute top-1/2 left-[15%] h-[180px] w-[300px] -translate-x-1/2 -translate-y-1/2 blur-[20px] bg-[radial-gradient(circle,rgba(197,160,89,0.12)_0%,transparent_70%)]" />
+      
+      {/* Flourish Left */}
+      <svg className="pointer-events-none absolute top-[5px] left-[10px] h-[70px] w-[140px] opacity-65" viewBox="0 0 100 50" fill="none">
+        <path 
+          className="stroke-[#c5a059] [stroke-dasharray:400] [stroke-dashoffset:400] animate-[drawCurly_4s_cubic-bezier(0.4,0,0.2,1)_infinite_alternate]" 
+          d="M5,45 C20,45 25,20 40,25 C55,30 50,5 70,10 C85,15 90,30 80,40 C70,50 55,40 60,25 C65,10 85,5 95,20" 
+          strokeWidth="2" 
           strokeLinecap="round"
         />
-        <circle cx="95" cy="20" r="3" fill="#e0c388" />
+        <circle cx="95" cy="20" r="3" fill="#e0c388"/>
       </svg>
 
-      <a href="#" className="brand-section">
-        <div className="logo-wrapper">
-          <Image
-            src={siteConfig.logo}
-            alt={`${siteConfig.siteName} logo`}
-            width={70}
-            height={70}
-            className="logo-image"
-            priority
-          />
+      <Link href="#hero" className="relative z-5 flex items-center gap-3.5 text-decoration-none">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-[#c5a059] shadow-[0_0_12px_rgba(197,160,89,0.25)] bg-[radial-gradient(circle_at_35%_30%,#2e1a10,#150c07)]">
+          <Image src="/images/logo/reallogo.jpeg" alt="TCE Logo" width={56} height={56} className="h-full w-full object-cover" />
         </div>
-
-        <div className="brand-titles">
-          <span className="brand-name">The Coffee Evolution</span>
-          <span className="brand-tagline">Coffee = Transformation</span>
+        <div className="flex flex-col">
+          <span className="font-display text-base font-bold leading-tight tracking-[2.5px] text-[#f1e4c3] uppercase shadow-[0_2px_6px_rgba(0,0,0,0.9)]">The Coffee Evolution</span>
+          <span className="mt-1 text-[9px] font-semibold tracking-[2px] text-[#c5a059] uppercase">Nizamabad</span>
         </div>
-      </a>
+      </Link>
 
-      <button
-        type="button"
-        className="mobile-toggle"
-        id="mobileToggle"
+      <button 
+        className="relative z-10 flex flex-col gap-1.5 border-none bg-none lg:hidden"
+        onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle Navigation"
-        aria-expanded={open}
-        onClick={() => setOpen((prev) => !prev)}
       >
-        <span />
-        <span />
-        <span />
+        <span className={clsx("h-0.5 w-6 bg-[#c5a059] transition-all", isOpen && "translate-y-2 rotate-45")} />
+        <span className={clsx("h-0.5 w-6 bg-[#c5a059] transition-all", isOpen && "opacity-0")} />
+        <span className={clsx("h-0.5 w-6 bg-[#c5a059] transition-all", isOpen && "-translate-y-2 -rotate-45")} />
       </button>
 
-      <ul className={open ? "nav-menu open" : "nav-menu"} id="navMenu">
-        {navItems.map((item) => (
-          <li key={item.href} className={`nav-item${item.active ? " active" : ""}`}>
-            <a href={item.href}>{item.label}</a>
+      <ul className={clsx(
+        "relative z-5 flex list-none items-center gap-5.5 transition-all max-lg:absolute max-lg:top-full max-lg:left-0 max-lg:w-full max-lg:flex-col max-lg:gap-0 max-lg:bg-[#120905] max-lg:border-b-2 max-lg:border-[#8c6d3b] max-lg:overflow-hidden",
+        isOpen ? "max-lg:max-h-[400px]" : "max-lg:max-h-0"
+      )}>
+        {navLinks.map((link) => (
+          <li key={link.name} className="max-lg:w-full max-lg:text-center">
+            <Link 
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className={clsx(
+                "relative inline-block py-2 text-[11.5px] font-semibold tracking-[2px] text-[#d1c2a5] uppercase transition-all duration-300 hover:text-[#f1e4c3] hover:[text-shadow:0_0_8px_rgba(197,160,89,0.5)] after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-linear-to-r after:from-transparent after:via-[#c5a059] after:to-transparent after:transition-all after:duration-300 hover:after:w-full max-lg:block max-lg:border-b max-lg:border-[#8c6d3b]/15 max-lg:py-4",
+                activeLink === link.name && "text-[#c5a059] after:w-full"
+              )}
+            >
+              {link.name}
+            </Link>
           </li>
         ))}
-        <li className="nav-item">
-          <a href="#order" className="nav-btn">
-            Order Online
-          </a>
-        </li>
       </ul>
 
-      <svg className="curly-flourish flourish-right" viewBox="0 0 100 50" fill="none" aria-hidden="true">
-        <path
-          className="curly-path"
-          d="M5,45 C20,45 25,20 40,25 C55,30 50,5 70,10 C85,15 90,30 80,40 C70,50 55,40 60,25 C65,10 85,5 95,20"
-          stroke="#c5a059"
-          strokeWidth="2"
+      {/* Flourish Right */}
+      <svg className="pointer-events-none absolute right-[10px] bottom-[5px] h-[70px] w-[140px] -scale-100 opacity-65" viewBox="0 0 100 50" fill="none">
+        <path 
+          className="stroke-[#c5a059] [stroke-dasharray:400] [stroke-dashoffset:400] animate-[drawCurly_4s_cubic-bezier(0.4,0,0.2,1)_infinite_alternate]" 
+          d="M5,45 C20,45 25,20 40,25 C55,30 50,5 70,10 C85,15 90,30 80,40 C70,50 55,40 60,25 C65,10 85,5 95,20" 
+          strokeWidth="2" 
           strokeLinecap="round"
         />
-        <circle cx="95" cy="20" r="3" fill="#e0c388" />
+        <circle cx="95" cy="20" r="3" fill="#e0c388"/>
       </svg>
+      
+      {/* Bottom Shimmer Border */}
+      <div className="absolute bottom-0 left-0 h-0.5 w-full animate-[shimmerBorder_3s_linear_infinite] bg-linear-to-r from-transparent via-[#c5a059] via-[#f1e4c3] via-[#c5a059] to-transparent [background-size:200%_100%]" />
 
-      <div className="bottom-border" />
-
-      <style jsx>{`
-        .header-container {
-          position: relative;
-          width: 100%;
-          background: linear-gradient(180deg, #180d07 0%, #0d0805 100%);
-          border-bottom: 2px solid #8c6d3b;
-          padding: 15px 40px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
-          overflow: hidden;
-          z-index: 1000;
-          font-family: var(--font-cinzel), Georgia, serif;
-        }
-
-        .header-glow {
-          position: absolute;
-          top: 50%;
-          left: 15%;
-          transform: translate(-50%, -50%);
-          width: 300px;
-          height: 180px;
-          background: radial-gradient(circle, rgba(197, 160, 89, 0.12) 0%, transparent 70%);
-          filter: blur(20px);
-          pointer-events: none;
-        }
-
-        .curly-flourish {
-          position: absolute;
-          width: 140px;
-          height: 70px;
-          opacity: 0.65;
-          pointer-events: none;
-        }
-
-        .flourish-left {
-          top: 5px;
-          left: 10px;
-        }
-
-        .flourish-right {
-          bottom: 5px;
-          right: 10px;
-          transform: scale(-1, -1);
-        }
-
-        .curly-path {
-          stroke-dasharray: 400;
-          stroke-dashoffset: 400;
-          animation: drawCurly 4s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-        }
-
+      <style jsx global>{`
         @keyframes drawCurly {
-          0% {
-            stroke-dashoffset: 400;
-            opacity: 0.2;
-          }
-          100% {
-            stroke-dashoffset: 0;
-            opacity: 0.9;
-          }
+          0% { stroke-dashoffset: 400; opacity: 0.2; }
+          100% { stroke-dashoffset: 0; opacity: 0.9; }
         }
-
-        .brand-section {
-          position: relative;
-          z-index: 5;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          text-decoration: none;
-        }
-
-        .logo-wrapper {
-          flex-shrink: 0;
-          animation: floatLogo 3.5s ease-in-out infinite alternate;
-        }
-
-        .logo-image {
-          width: 65px;
-          height: 65px;
-          border-radius: 9999px;
-          object-fit: cover;
-          filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.35));
-        }
-
-        @keyframes floatLogo {
-          0% {
-            transform: translateY(0);
-          }
-          100% {
-            transform: translateY(-3px);
-          }
-        }
-
-        .brand-titles {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .brand-name {
-          font-size: 18px;
-          font-weight: 700;
-          letter-spacing: 2.5px;
-          color: #f1e4c3;
-          text-transform: uppercase;
-          text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
-          line-height: 1.2;
-        }
-
-        .brand-tagline {
-          font-size: 9px;
-          letter-spacing: 2px;
-          color: #c5a059;
-          text-transform: uppercase;
-          margin-top: 3px;
-          font-weight: 600;
-        }
-
-        .nav-menu {
-          position: relative;
-          z-index: 5;
-          display: flex;
-          align-items: center;
-          gap: 25px;
-          list-style: none;
-        }
-
-        .nav-item a {
-          position: relative;
-          text-decoration: none;
-          color: #d1c2a5;
-          font-size: 12px;
-          font-weight: 600;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          padding: 8px 0;
-          transition: color 0.3s ease;
-        }
-
-        .nav-item a::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          width: 0;
-          height: 2px;
-          background: linear-gradient(90deg, transparent, #c5a059, transparent);
-          transition: all 0.3s ease;
-          transform: translateX(-50%);
-        }
-
-        .nav-item a:hover {
-          color: #f1e4c3;
-          text-shadow: 0 0 8px rgba(197, 160, 89, 0.5);
-        }
-
-        .nav-item a:hover::after,
-        .nav-item.active a::after {
-          width: 100%;
-        }
-
-        .nav-item.active a {
-          color: #c5a059;
-        }
-
-        .nav-btn {
-          background: rgba(197, 160, 89, 0.12);
-          border: 1px solid #8c6d3b;
-          padding: 8px 16px !important;
-          border-radius: 4px;
-          transition: all 0.3s ease !important;
-        }
-
-        .nav-btn:hover {
-          background: #c5a059 !important;
-          color: #0d0805 !important;
-          box-shadow: 0 0 12px rgba(197, 160, 89, 0.4);
-        }
-
-        .nav-btn::after {
-          display: none !important;
-        }
-
-        .mobile-toggle {
-          display: none;
-          flex-direction: column;
-          gap: 5px;
-          background: none;
-          border: none;
-          cursor: pointer;
-          z-index: 10;
-        }
-
-        .mobile-toggle span {
-          width: 25px;
-          height: 2px;
-          background: #c5a059;
-          transition: all 0.3s ease;
-        }
-
-        .bottom-border {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 3px;
-          background: linear-gradient(90deg, transparent, #c5a059, #f1e4c3, #c5a059, transparent);
-          background-size: 200% 100%;
-          animation: shimmerBorder 3s linear infinite;
-        }
-
         @keyframes shimmerBorder {
-          0% {
-            background-position: 100% 0;
-          }
-          100% {
-            background-position: -100% 0;
-          }
-        }
-
-        @media (max-width: 920px) {
-          .curly-flourish {
-            display: none;
-          }
-
-          .mobile-toggle {
-            display: flex;
-          }
-
-          .nav-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: #120905;
-            flex-direction: column;
-            gap: 0;
-            border-bottom: 2px solid #8c6d3b;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out;
-          }
-
-          .nav-menu.open {
-            max-height: 400px;
-          }
-
-          .nav-item {
-            width: 100%;
-            text-align: center;
-          }
-
-          .nav-item a {
-            display: block;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(140, 109, 59, 0.15);
-          }
-
-          .nav-btn {
-            margin: 15px auto;
-            display: inline-block !important;
-            width: 80%;
-          }
+          0% { background-position: 100% 0; }
+          100% { background-position: -100% 0; }
         }
       `}</style>
     </header>
