@@ -416,7 +416,7 @@ function About() {
               <div className="image-reveal relative aspect-[4/3] overflow-hidden">
                 <Image
                   src={[
-                    "/images/gallery/menu-page-coffee.jpeg",
+                    "/images/home.jpg",
                     "/images/gallery/menu-counter-wide.jpeg",
                     "/images/menu/coffee/latte-art.jpeg",
                     "/images/gallery/team-at-outlet.jpeg",
